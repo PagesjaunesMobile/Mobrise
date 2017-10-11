@@ -1,6 +1,6 @@
 {
   "name": "Mobrise",
-  "version": "0.5.1",
+  "version": "dev",
   "private": true,
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
