@@ -23,6 +23,7 @@
     "native-base": "^2.3.1",
     "react": "16.0.0-alpha.12",
     "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
+    "react-native-scripts": "^1.5.0",
     "react-navigation": "^1.0.0-beta.11",
     "react-redux": "^5.0.6",
     "redux": "^3.7.2",
@@ -41,7 +42,6 @@
     "flow-bin": "^0.56.0",
     "jest-expo": "^21.0.0",
     "react-native-debugger-open": "^0.3.15",
-    "react-native-scripts": "1.5.0",
     "react-test-renderer": "16.0.0-alpha.12"
   }
 }
