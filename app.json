@@ -1,0 +1,9 @@
+{
+  "expo": {
+    "name": "Mobrise",
+    "slug": "mobrise",
+    "privacy": "unlisted",
+    "description": "Unofficial Bitrise.io mobile client",
+    "sdkVersion": "21.0.0"
+  }
+}
