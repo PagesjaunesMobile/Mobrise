@@ -3,8 +3,12 @@
 import Expo from 'expo'
 import React, { Component } from 'react'
 import { Provider } from 'react-redux'
+import EStyleSheet from 'react-native-extended-stylesheet'
 import store, { persistor } from './store'
 import NavigatorScreen from './navigation/NavigationScreen'
+import style from './style'
+
+EStyleSheet.build(style)
 
 type State = { isReady: boolean }
 

@@ -3,12 +3,21 @@
 import React, { Component } from 'react'
 import { Animated } from 'react-native'
 import { View, Form, Item, Label, Input, Button, Text } from 'native-base'
+import EStyleSheet from 'react-native-extended-stylesheet'
 import autobind from 'autobind-decorator'
 import { DangerZone } from 'expo'
 import { reduxify } from '../utils'
 import { connect, disconnect } from './connectionReducer'
 
 const { Lottie } = DangerZone
+
+const style = EStyleSheet.create({
+  connectButton: {
+    backgroundColor: '$purple',
+    marginTop: 30,
+    marginBottom: 30,
+  },
+})
 
 type Props = {
   connecting: boolean,
@@ -64,7 +73,7 @@ export default class ConnectionScreen extends Component<Props, State> {
         </Form>
         <Button
           full
-          style={{ marginTop: 30, marginBottom: 30 }}
+          style={style.connectButton}
           onPress={this.onConnect}
         >
           <Text>Connect</Text>

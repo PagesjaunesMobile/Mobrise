@@ -3,6 +3,7 @@
 import React, { Component } from 'react'
 import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-navigation'
 import { BackHandler } from 'react-native'
+import EStyleSheet from 'react-native-extended-stylesheet'
 import autobind from 'autobind-decorator'
 import { reduxify } from '../utils'
 import ConnectionScreen from '../connection/ConnectionScreen'
@@ -23,6 +24,15 @@ export const Navigator = StackNavigator({
   Build: {
     screen: BuildView,
   },
+}, {
+  navigationOptions: EStyleSheet.create({
+    headerStyle: {
+      backgroundColor: '$green',
+    },
+    headerTitleStyle: {
+      color: 'white',
+    },
+  }),
 })
 
 type Props = {
