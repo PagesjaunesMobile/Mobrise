@@ -5,6 +5,7 @@ import { Animated } from 'react-native'
 import { View, Form, Item, Label, Input, Button, Text } from 'native-base'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import autobind from 'autobind-decorator'
+// $FlowFixMe
 import { DangerZone } from 'expo'
 import { reduxify } from '../utils'
 import { connect, disconnect } from './connectionReducer'

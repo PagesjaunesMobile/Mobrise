@@ -12,14 +12,12 @@ import BitriseClient from './services/BitriseClient'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose // eslint-disable-line no-underscore-dangle
 
+// $FlowFixMe
 const store = createStore(combineReducers({
   navigation,
   connection,
   dashboard,
-}), composeEnhancers(
-  applyMiddleware(thunk.withExtraArgument({ bitrise: new BitriseClient() }))),
-  autoRehydrate(),
-)
+}), composeEnhancers(applyMiddleware(thunk.withExtraArgument({ bitrise: new BitriseClient() }))), autoRehydrate())
 
 export const persistor = persistStore(store, { storage: AsyncStorage, whitelist: ['connection'] })
 

@@ -3,8 +3,8 @@
 import React, { Component } from 'react'
 import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-navigation'
 import { BackHandler, Platform } from 'react-native'
-import EStyleSheet from 'react-native-extended-stylesheet'
 import autobind from 'autobind-decorator'
+// $FlowFixMe
 import Expo from 'expo'
 import { reduxify } from '../utils'
 import ConnectionScreen from '../connection/ConnectionScreen'
@@ -13,6 +13,7 @@ import BuildList from '../dashboard/BuildList'
 import BuildView from '../dashboard/BuildView'
 import style from '../style'
 
+// $FlowFixMe
 export const Navigator = StackNavigator({
   Connection: {
     screen: ConnectionScreen,
@@ -57,6 +58,7 @@ export default class NavigationScreen extends Component<Props, void> {
   }
 
   render() {
+    // $FlowFixMe
     return <Navigator navigation={addNavigationHelpers({ dispatch: this.props.dispatch, state: this.props.navigation })} />
   }
 
@@ -64,7 +66,8 @@ export default class NavigationScreen extends Component<Props, void> {
   onHardwareBackPress() {
     const { navigation } = this.props
     if (navigation && navigation.index) {
-      this.props.dispatch(NavigationActions.back())
+      const dispatch = (this.props.dispatch: any)
+      dispatch(NavigationActions.back())
       return true
     }
     return false
