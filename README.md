@@ -2,10 +2,13 @@
 [![Build Status](https://www.bitrise.io/app/28bd8b82304d63c3/status.svg?token=7_Vdp2MoJ3cDK7J1zyztyg&branch=master)](https://www.bitrise.io/app/28bd8b82304d63c3) 
 [![Latest Release](http://github-release-version.herokuapp.com/github/Mikadoh/Mobrise/release.svg?style=flatr)](https://github.com/Mikadoh/Mobrise/releases/latest) 
 
-<img src="https://d1wp6m56sqw74a.cloudfront.net/~assets/06411d647980ea21025882f94f6ef7fe" width="200"/>  
+<img src="https://docs.google.com/drawings/d/1U_Abw1mhhWH6LjukyZ4GNBTkaBuqbV4VR5Olpc90hq0/export/png?id=1U_Abw1mhhWH6LjukyZ4GNBTkaBuqbV4VR5Olpc90hq0&pageid=p" width="200"/>  
 
-This is an unofficial open-source iOs and Android client for the [bitrise.io](http://bitrise.io) public API.  
-The app is build with React Native / Expo
+This is an unofficial open-source iOS and Android client for the [bitrise.io](http://bitrise.io) public API.  
+The app is build with React Native / Expo  
+
+This is a work in progress.  
+Current version is still in alpha stage.  
 
 ## Install
 
@@ -19,8 +22,6 @@ The app is build with React Native / Expo
 
 2. Flash the QR Code  
 [![Mobrise](https://lh5.googleusercontent.com/LfSozPH1lvEyUA1KZY56E2jOIHSYwSNsOTDkSk2L_6znjIxkQjACT2Fb3-0WXVQ3j-o6zAxkF_o0f6s=w2501-h1300)](https://expo.io/@mikadoh/mobrise)
-
-If Yarn was installed when the project was initialized, then dependencies will have been installed via Yarn, and you should probably use it to run these commands as well. Unlike dependency installation, command running syntax is identical for Yarn and NPM at the time of this writing.
 
 ## Generate Token
 
