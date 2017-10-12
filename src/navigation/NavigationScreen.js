@@ -2,9 +2,10 @@
 
 import React, { Component } from 'react'
 import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-navigation'
-import { BackHandler } from 'react-native'
+import { BackHandler, Platform } from 'react-native'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import autobind from 'autobind-decorator'
+import Expo from 'expo'
 import { reduxify } from '../utils'
 import ConnectionScreen from '../connection/ConnectionScreen'
 import AppList from '../dashboard/AppList'
@@ -29,6 +30,8 @@ export const Navigator = StackNavigator({
   navigationOptions: {
     headerStyle: {
       backgroundColor: style.$green,
+      paddingTop: Expo.Constants.statusBarHeight,
+      height: (Platform.OS === 'android' ? 56 : 44) + Expo.Constants.statusBarHeight,
     },
     headerTitleStyle: {
       color: 'white',
