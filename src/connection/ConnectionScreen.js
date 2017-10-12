@@ -1,16 +1,13 @@
 // @flow
 
 import React, { Component } from 'react'
-import { Animated } from 'react-native'
-import { View, Form, Item, Label, Input, Button, Text } from 'native-base'
+import { Animated, Image } from 'react-native'
+import { View, Item, Icon, Input, Button, Text } from 'native-base'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import autobind from 'autobind-decorator'
-// $FlowFixMe
-import { DangerZone } from 'expo'
 import { reduxify } from '../utils'
 import { connect, disconnect } from './connectionReducer'
-
-const { Lottie } = DangerZone
+import defaultStyle from '../style'
 
 const style = EStyleSheet.create({
   connectButton: {
@@ -42,10 +39,20 @@ type State = {
 })
 export default class ConnectionScreen extends Component<Props, State> {
 
-  static navigationOptions = {
+  static navigationOptions = ({ navigationOptions }) => ({
     title: 'Mobrise',
     headerBackTitle: 'Home',
-  }
+    headerStyle: {
+      ...navigationOptions.headerStyle,
+      backgroundColor: defaultStyle.$purple,
+    },
+    headerTitleStyle: {
+      alignSelf: 'center',
+      textAlign: 'center',
+    },
+    headerLeft: (<Image source={require('../assets/logo.png')} style={{ width: 40, height: 40, marginLeft:10 }} />), // eslint-disable-line global-require
+    headerRight: (<View />),
+  })
 
   state: State
 
@@ -63,31 +70,21 @@ export default class ConnectionScreen extends Component<Props, State> {
     }
     return (
       <View>
-        <Form style={{ marginTop: 10 }}>
-          <Item fixedLabel>
-            <Label>Access token</Label>
-            <Input
-              value={this.state.token}
-              onChangeText={(text => this.setState({ token: text }))}
-            />
-          </Item>
-        </Form>
+        <Item>
+          <Icon name="key" />
+          <Input
+            placeholder="Token"
+            value={this.state.token}
+            onChangeText={(text => this.setState({ token: text }))}
+          />
+        </Item>
         <Button
-          full
+          rounded
           style={style.connectButton}
           onPress={this.onConnect}
         >
-          <Text>Connect</Text>
+          <Icon name="arrow-forward" />
         </Button>
-        <View style={{ flex: 1, alignItems:'center' }}>
-          <View style={{ height: 300, width: 300 }}>
-            <Lottie
-              style={{ height: 300, width: 300 }}
-              source={require('../assets/animations/gears.json')} // eslint-disable-line global-require
-              progress={this.state.loading}
-            />
-          </View>
-        </View>
       </View>
     )
   }
