@@ -2,7 +2,7 @@
   "expo": {
     "name": "Mobrise",
     "slug": "mobrise",
-    "icon": "./src/assets/logo.png",
+    "icon": "./src/assets/logo-alpha.png",
     "loading": {
       "icon": "./src/assets/logo.png",
       "backgroundColor": "#3bc3a3",
