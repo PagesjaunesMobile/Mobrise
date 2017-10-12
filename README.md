@@ -5,7 +5,10 @@
 <img src="https://d1wp6m56sqw74a.cloudfront.net/~assets/06411d647980ea21025882f94f6ef7fe" width="200"/>  
 
 This is an unofficial open-source iOS and Android client for the [bitrise.io](http://bitrise.io) public API.  
-The app is build with React Native / Expo
+The app is build with React Native / Expo  
+
+This is a work in progress.  
+Current version is still in alpha stage.  
 
 ## Install
 
