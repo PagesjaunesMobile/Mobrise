@@ -15,7 +15,7 @@ The app is build with React Native / Expo
 </a>
 <a href="https://play.google.com/store/apps/details?id=host.exp.exponent&referrer=www">
  <img src="https://d30j33t1r58ioz.cloudfront.net/static/download-google.png?4e7256de056bfc6d3eaf8d79e3f84c86" width="150" />
-</a>
+</a>  
 
 2. Flash the QR Code  
 [![Mobrise](https://lh5.googleusercontent.com/LfSozPH1lvEyUA1KZY56E2jOIHSYwSNsOTDkSk2L_6znjIxkQjACT2Fb3-0WXVQ3j-o6zAxkF_o0f6s=w2501-h1300)](https://expo.io/@mikadoh/mobrise)
