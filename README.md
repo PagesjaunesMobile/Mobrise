@@ -20,8 +20,6 @@ The app is build with React Native / Expo
 2. Flash the QR Code  
 [![Mobrise](https://lh5.googleusercontent.com/LfSozPH1lvEyUA1KZY56E2jOIHSYwSNsOTDkSk2L_6znjIxkQjACT2Fb3-0WXVQ3j-o6zAxkF_o0f6s=w2501-h1300)](https://expo.io/@mikadoh/mobrise)
 
-If Yarn was installed when the project was initialized, then dependencies will have been installed via Yarn, and you should probably use it to run these commands as well. Unlike dependency installation, command running syntax is identical for Yarn and NPM at the time of this writing.
-
 ## Generate Token
 
 In order to connect to your bitrise account with Mobrise you need to [generare a new token](https://www.bitrise.io/me/profile#/security) and copy/paste it in the application.
