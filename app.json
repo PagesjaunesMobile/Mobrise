@@ -2,6 +2,12 @@
   "expo": {
     "name": "Mobrise",
     "slug": "mobrise",
+    "icon": "./src/assets/logo.png",
+    "loading": {
+      "icon": "./src/assets/logo.png",
+      "backgroundColor": "#3bc3a3",
+      "hideExponentText": true,
+    },
     "privacy": "unlisted",
     "description": "Unofficial Bitrise.io mobile client",
     "sdkVersion": "21.0.0"

@@ -10,6 +10,7 @@ import ConnectionScreen from '../connection/ConnectionScreen'
 import AppList from '../dashboard/AppList'
 import BuildList from '../dashboard/BuildList'
 import BuildView from '../dashboard/BuildView'
+import style from '../style'
 
 export const Navigator = StackNavigator({
   Connection: {
@@ -25,14 +26,18 @@ export const Navigator = StackNavigator({
     screen: BuildView,
   },
 }, {
-  navigationOptions: EStyleSheet.create({
+  navigationOptions: {
     headerStyle: {
-      backgroundColor: '$green',
+      backgroundColor: style.$green,
     },
     headerTitleStyle: {
       color: 'white',
     },
-  }),
+    headerBackTitleStyle: {
+      color: 'white',
+    },
+    headerTintColor: 'white',
+  },
 })
 
 type Props = {

@@ -82,7 +82,7 @@ export default class ConnectionScreen extends Component<Props, State> {
           <View style={{ height: 300, width: 300 }}>
             <Lottie
               style={{ height: 300, width: 300 }}
-              source={require('../resources/animations/gears.json')} // eslint-disable-line global-require
+              source={require('../assets/animations/gears.json')} // eslint-disable-line global-require
               progress={this.state.loading}
             />
           </View>
