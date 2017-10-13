@@ -3,18 +3,32 @@
 import React, { Component } from 'react'
 import { Platform } from 'react-native'
 import { List, ListItem, Text, Spinner, View, Body, Left, Right, Icon } from 'native-base'
+import EStyleSheet from 'react-native-extended-stylesheet'
 import BuildStatusBadge from './BuildStatusBadge'
 import BuildBranchBadge from './BuildBranchBadge'
 import { reduxify } from '../utils'
 import { openBuild } from './dashboardReducer'
 import type { Build } from '../services/BitriseClient'
 
+
+const style = EStyleSheet.create({
+  container: {
+    backgroundColor: '$lightGrey',
+    flex: 1,
+  },
+  spinner: {
+    color: '$purple',
+  },
+  listItem: {
+    backgroundColor: 'transparent',
+  },
+})
+
 type Props = {
   loading: boolean,
   builds: Array<Build>,
   openBuild: (Build) => void,
 }
-
 @reduxify(state => ({
   loading: state.dashboard.loading,
   builds: state.dashboard.builds,
@@ -29,10 +43,10 @@ export default class BuildList extends Component<Props, void> {
 
   render() {
     return (
-      <View>
+      <View style={style.container}>
         {
           this.props.loading &&
-          <Spinner />
+          <Spinner color={EStyleSheet.flatten(style.spinner).color} />
         }
         <List
           dataArray={this.props.builds || []}

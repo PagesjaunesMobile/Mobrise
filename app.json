@@ -4,7 +4,7 @@
     "slug": "mobrise",
     "icon": "./src/assets/logo-alpha.png",
     "loading": {
-      "icon": "./src/assets/logo.png",
+      "icon": "./src/assets/banner.png",
       "backgroundColor": "#3bc3a3",
       "hideExponentText": true,
     },

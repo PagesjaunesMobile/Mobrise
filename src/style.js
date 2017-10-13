@@ -5,4 +5,5 @@ export default {
   $purple: '#8151a8',
   $lightGrey: '#f4f4f4',
   $mediumGrey: '#ebebeb',
+  $darkGrey: '#6a6a6a',
 }

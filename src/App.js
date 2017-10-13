@@ -26,8 +26,8 @@ export default class App extends Component<void, State> {
 
   componentWillMount() {
     Expo.Font.loadAsync({
-      Roboto: require('native-base/Fonts/Roboto.ttf'), // eslint-disable-line global-require
-      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'), // eslint-disable-line global-require
+      Roboto: require('native-base/Fonts/Roboto.ttf'),
+      Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
     }).then(() => {
       this.setState({ isReady: true })
     })

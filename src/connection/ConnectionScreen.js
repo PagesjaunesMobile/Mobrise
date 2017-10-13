@@ -7,13 +7,50 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 import autobind from 'autobind-decorator'
 import { reduxify } from '../utils'
 import { connect, disconnect } from './connectionReducer'
-import defaultStyle from '../style'
 
 const style = EStyleSheet.create({
+  container: {
+    backgroundColor: '$green',
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    paddingTop: 50,
+  },
+  banner: {
+    width: 400,
+    height: 100,
+    resizeMode: 'contain',
+    marginBottom: 50,
+  },
+  tokenContainer: {
+    flex:1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderColor:'red',
+    minHeight:50,
+  },
+  tokenItem: {
+    backgroundColor: '$lightGrey',
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  tokenIcon: {
+    color: '$purple',
+  },
+  tokenInput: {
+    color: '$darkGrey',
+  },
+  connectContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    minHeight: 100,
+  },
   connectButton: {
     backgroundColor: '$purple',
-    marginTop: 30,
-    marginBottom: 30,
+    alignSelf: 'center',
+  },
+  bottomSpacer: {
+    flex: 2,
   },
 })
 
@@ -24,12 +61,10 @@ type Props = {
   disconnect: () => void,
   token: string,
 }
-
 type State = {
   loading: any,
   token: string,
 }
-
 @reduxify(state => ({
   connecting: state.connection.connecting,
   token: state.connection.token,
@@ -39,20 +74,10 @@ type State = {
 })
 export default class ConnectionScreen extends Component<Props, State> {
 
-  static navigationOptions = ({ navigationOptions }) => ({
-    title: 'Mobrise',
-    headerBackTitle: 'Home',
-    headerStyle: {
-      ...navigationOptions.headerStyle,
-      backgroundColor: defaultStyle.$purple,
-    },
-    headerTitleStyle: {
-      alignSelf: 'center',
-      textAlign: 'center',
-    },
-    headerLeft: (<Image source={require('../assets/logo.png')} style={{ width: 40, height: 40, marginLeft:10 }} />), // eslint-disable-line global-require
-    headerRight: (<View />),
-  })
+  static navigationOptions = {
+    header: null,
+    headerBackTitle: 'Back',
+  }
 
   state: State
 
@@ -69,22 +94,33 @@ export default class ConnectionScreen extends Component<Props, State> {
       this.loading()
     }
     return (
-      <View>
-        <Item>
-          <Icon name="key" />
-          <Input
-            placeholder="Token"
-            value={this.state.token}
-            onChangeText={(text => this.setState({ token: text }))}
-          />
-        </Item>
-        <Button
-          rounded
-          style={style.connectButton}
-          onPress={this.onConnect}
-        >
-          <Icon name="arrow-forward" />
-        </Button>
+      <View style={style.container}>
+
+        <Image source={require('../assets/banner.png')} style={style.banner} />
+
+        <View style={style.tokenContainer}>
+          <Item rounded style={style.tokenItem}>
+            <Icon name="key" style={style.tokenIcon} />
+            <Input
+              placeholder="Token"
+              value={this.state.token}
+              onChangeText={(text => this.setState({ token: text }))}
+              style={style.tokenInput}
+            />
+          </Item>
+        </View>
+
+        <View style={style.connectContainer}>
+          <Button
+            rounded
+            style={style.connectButton}
+            onPress={this.onConnect}
+          >
+            <Text>Connect</Text>
+            <Icon name="arrow-forward" />
+          </Button>
+        </View>
+        <View style={style.bottomSpacer} />
       </View>
     )
   }

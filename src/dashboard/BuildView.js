@@ -3,15 +3,22 @@
 import React, { Component } from 'react'
 import { View, ScrollView } from 'react-native'
 import { Card, CardItem, Text, Left, Body } from 'native-base'
+import EStyleSheet from 'react-native-extended-stylesheet'
 import { reduxify } from '../utils'
 import type { Build } from '../services/BitriseClient'
 import BuildStatusBadge from './BuildStatusBadge'
 import BuildBranchBadge from './BuildBranchBadge'
 
+const style = EStyleSheet.create({
+  container: {
+    backgroundColor: '$mediumGrey',
+    flex: 1,
+  },
+})
+
 type Props = {
   build: Build,
 }
-
 @reduxify(state => ({
   build: state.dashboard.build,
 }))
@@ -25,7 +32,7 @@ export default class BuildView extends Component<Props, void> {
     const { build } = this.props
     const triggerDate = new Date(build.triggered_at)
     return (
-      <View style={{ flex: 1 }}>
+      <View style={style.container}>
         <Card style={{ flex: 0, height: 150 }}>
           <CardItem>
             <Left style={{ flex:0, width: 210 }}>
