@@ -1,4 +1,4 @@
-<img src="https://docs.google.com/drawings/d/1LkFA89qDbIB0G7EMfIq-tBmWWW0R4jqgpwe25O4HOYw/export/png?id=1LkFA89qDbIB0G7EMfIq-tBmWWW0R4jqgpwe25O4HOYw&pageid=p" height="200" />
+<img src="https://github.com/Mikadoh/Mobrise/raw/master/src/assets/banner.png" height="200" />
 
 
 # Mobrise
