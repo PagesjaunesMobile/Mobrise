@@ -9,7 +9,7 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "postinstall": "rndebugger-open"
+    "postinstall": "rndebugger-open; (find node_modules -type f -name .babelrc | grep -v /react-native/ | xargs rm) || true"
   },
   "jest": {
     "preset": "jest-expo"
