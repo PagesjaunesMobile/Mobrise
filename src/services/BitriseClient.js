@@ -72,7 +72,8 @@ export default class BitriseClient {
     if (response.status !== 200) {
       throw new Error()
     }
-    return response.json().data
+    const json = await response.json()
+    return json.data
   }
 
   account(): Promise<Account> {

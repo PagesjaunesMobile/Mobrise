@@ -1,7 +1,8 @@
 // @flow
 
-import type BitriseClient, { Account } from '../services/BitriseClient'
-import { navigateToApps } from '../navigation/navigationReducer'
+import type BitriseClient from '../services/BitriseClient'
+import { openApps } from '../dashboard/dashboardReducer'
+import { createAction, actionHandler } from '../utils'
 
 type State = (typeof initialState)
 const initialState = {
@@ -11,52 +12,28 @@ const initialState = {
   username: '',
 }
 
-const CONNECT = 'CONNECT'
-export const DISCONNECT = 'DISCONNECT'
-const CONNECT_SUCCESS = 'CONNECT_SUCCESS'
-const CONNECT_FAIL = 'CONNECT_FAIL'
+const CONNECT = createAction('CONNECT')
+export const DISCONNECT = createAction('DISCONNECT')
 
-export const connect = (token: string) => async (dispatch:(any) => void, getState:() => State, { bitrise } : { bitrise: BitriseClient }) => {
-  dispatch({ type: CONNECT })
+export const connect = (token: string) => ({ bitrise, dispatch } : { bitrise: BitriseClient, dispatch: any }) => {
   bitrise.setToken(token)
-  const account = await bitrise.account()
-  dispatch({
-    type: CONNECT_SUCCESS,
-    account,
-    token,
-  })
-  dispatch(navigateToApps())
+  return CONNECT.createAsync(
+    bitrise.account().then(account => ({ account, token })),
+    { onSuccess: () => { dispatch(openApps()) } },
+  )
 }
 
-export const disconnect = () => ({
-  type: DISCONNECT,
-})
+export const disconnect = () => DISCONNECT.create()
 
-export default (state: State = initialState, action: { type: string, token: ?string, account: ?Account }) => {
-  switch (action.type) {
-    case CONNECT:
-      return {
-        ...state,
-        connecting: true,
-      }
-    case DISCONNECT:
-      return initialState
-    case CONNECT_SUCCESS:
-      return {
-        ...state,
-        connected: true,
-        connecting: false,
-        token: action.token,
-        username: action.account ? action.account.username : '',
-      }
-    case CONNECT_FAIL:
-      return {
-        ...state,
-        connected: false,
-        connecting: false,
-        username: '',
-      }
-    default:
-      return state
-  }
+export default (state: State = initialState, action: any) => {
+  const { token, account } = action.payload || {}
+  return actionHandler(state, action)
+    .handleAsync(CONNECT, {
+      start: state => ({ ...state, connecting: true }),
+      success: state => ({ ...state, connected: true, token, username: account.username }),
+      failure: state => ({ ...state, connected: false }),
+      finish: state => ({ ...state, connecting: false }),
+    })
+    .handle(DISCONNECT, initialState)
+    .getState()
 }

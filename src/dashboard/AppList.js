@@ -5,7 +5,7 @@ import { Platform } from 'react-native'
 import { List, ListItem, Text, Spinner, View, Body, Right, Left, Icon } from 'native-base'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import { reduxify } from '../utils'
-import { getApps, openApp } from './dashboardReducer'
+import { openApp } from './dashboardReducer'
 import type { App } from '../services/BitriseClient'
 
 const style = EStyleSheet.create({
@@ -24,26 +24,18 @@ const style = EStyleSheet.create({
 type Props = {
   loading: boolean,
   apps: Array<App>,
-  getApps(): () => void,
-  openApp(): (App) => void,
+  openApp: (App) => void,
 }
 @reduxify(state => ({
   loading: state.dashboard.loading,
   apps: state.dashboard.apps,
 }), {
-  getApps,
   openApp,
 })
 export default class AppList extends Component<Props, void> {
 
   static navigationOptions = {
     title: 'Apps',
-  }
-
-  componentDidMount() {
-    if (!this.props.apps) {
-      this.props.getApps()
-    }
   }
 
   render() {

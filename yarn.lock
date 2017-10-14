@@ -1885,6 +1885,10 @@ delegates@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/delegates/-/delegates-1.0.0.tgz#84c6e159b81904fdca59a0ef44cd870d31250f9a"
 
+deline@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/deline/-/deline-1.0.4.tgz#6c05c87836926e1a1c63e47882f3d2eb2c6f14c9"
+
 denodeify@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/denodeify/-/denodeify-1.2.1.tgz#3a36287f5034e699e7577901052c2e6c94251631"
@@ -5296,11 +5300,23 @@ rebound@^0.0.13:
   version "0.0.13"
   resolved "https://registry.yarnpkg.com/rebound/-/rebound-0.0.13.tgz#4a225254caf7da756797b19c5817bf7a7941fac1"
 
+redux-inject@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/redux-inject/-/redux-inject-1.0.2.tgz#a625c2567c9028f5cfb4bfd4707c215e92fefaab"
+
 redux-logger@^2.7.4:
   version "2.10.2"
   resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-2.10.2.tgz#3c5a5f0a6f32577c1deadf6655f257f82c6c3937"
   dependencies:
     deep-diff "0.3.4"
+
+redux-pack@^0.1.5:
+  version "0.1.5"
+  resolved "https://registry.yarnpkg.com/redux-pack/-/redux-pack-0.1.5.tgz#1973b26ef749dfc020e8a61d54cf3e55ec8ae4cd"
+  dependencies:
+    deline "^1.0.4"
+    invariant "^2.2.2"
+    uuid "^3.0.1"
 
 redux-persist@^4.10.1:
   version "4.10.1"
@@ -5309,10 +5325,6 @@ redux-persist@^4.10.1:
     json-stringify-safe "^5.0.1"
     lodash "^4.17.4"
     lodash-es "^4.17.4"
-
-redux-thunk@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.2.0.tgz#e615a16e16b47a19a515766133d1e3e99b7852e5"
 
 redux@^3.6.0, redux@^3.7.2:
   version "3.7.2"

@@ -33,6 +33,8 @@
       "react/sort-comp": 0,
       "semi": [2, "never"],
       "no-fallthrough": 0,
-      "global-require": 0
+      "global-require": 0,
+      "no-shadow": 0,
+      "object-curly-newline": 0
     }
 }

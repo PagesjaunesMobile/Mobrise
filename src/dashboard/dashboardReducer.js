@@ -2,15 +2,12 @@
 
 import type BitriseClient, { Build, App } from '../services/BitriseClient'
 import { DISCONNECT } from '../connection/connectionReducer'
-import { navigateToApp, navigateToBuild } from '../navigation/navigationReducer'
+import { navigateToApps, navigateToApp, navigateToBuild } from '../navigation/navigationReducer'
+import { createAction, actionHandler } from '../utils'
 
-const LOADING_APPS = 'LOADING_APPS'
-const LOADING_APP = 'LOADING_APP'
-const LOADING_BUILD = 'LOADING_BUILD'
-const LOADED = 'LOADED'
-const LOADED_APPS = 'LOADED_APPS'
-const LOADED_APP = 'LOADED_APP'
-const LOADED_BUILD = 'LOADED_BUILD'
+const GET_APPS = createAction('GET_APPS')
+const GET_APP = createAction('GET_APP')
+const SET_BUILD = createAction('SET_BUILD')
 
 type State = {
   loading: boolean,
@@ -26,56 +23,35 @@ const initalState: State = {
   build: null,
 }
 
-export const getApps = () => async (dispatch:(any) => void, getState:() => State, { bitrise } : { bitrise : BitriseClient }) => {
-  dispatch({ type: LOADING_APPS })
-  try {
-    const apps = await bitrise.apps()
-    dispatch({ type: LOADED_APPS, apps })
-  } catch (err) {
-    dispatch({ type: LOADED })
-  }
-}
+export const openApps = () => ({ bitrise } : { bitrise : BitriseClient }) => ([
+  navigateToApps(),
+  GET_APPS.createAsync(bitrise.apps()),
+])
 
-export const openApp = (app: App) => async (dispatch:(any) => void, getState:() => State, { bitrise } : { bitrise : BitriseClient }) => {
-  dispatch(navigateToApp(app))
-  dispatch({ type: LOADING_APP })
-  try {
-    const builds = await bitrise.builds(app.slug)
-    dispatch({ type: LOADED_APP, builds })
-  } catch (err) {
-    dispatch({ type: LOADED })
-  }
-}
+export const openApp = (app: App) => ({ bitrise } : { bitrise : BitriseClient, dispatch: any }) => ([
+  navigateToApp(app),
+  GET_APP.createAsync(bitrise.builds(app.slug)),
+])
 
-export const openBuild = (build: Build) => (dispatch:(any) => void) => {
-  dispatch(navigateToBuild(build))
-  dispatch({ type: LOADED_BUILD, build })
-}
+export const openBuild = (build: Build) => ([
+  navigateToBuild(build),
+  SET_BUILD.create(build),
+])
 
 
-export default (state: State = initalState, action: { type: string, apps: ?Array<App>, builds: ?Array<Build>, build: ?Build }) => {
-
-  switch (action.type) {
-    case LOADING_APPS:
-      state = { ...state, apps: null }
-    case LOADING_APP:
-      state = { ...state, builds: null }
-    case LOADING_BUILD:
-      return { ...state, build: null, loading: true }
-
-    case LOADED_APPS:
-      state = { ...state, apps: action.apps }
-    case LOADED_APP:
-      state = { ...state, builds: action.builds }
-    case LOADED_BUILD:
-      state = { ...state, build: action.build }
-    case LOADED:
-      return { ...state, loading: false }
-
-    case DISCONNECT:
-      return initalState
-
-    default:
-      return state
-  }
+export default (state: State = initalState, action: any) => {
+  return actionHandler(state, action)
+    .handleAsync(GET_APPS, {
+      start: state => ({ ...state, apps: null, builds: null, build: null, loading: true }),
+      success: state => ({ ...state, apps: action.payload }),
+      finish: state => ({ ...state, loading: false }),
+    })
+    .handleAsync(GET_APP, {
+      start: state => ({ ...state, builds: null, build: null, loading: true }),
+      success: state => ({ ...state, builds: action.payload }),
+      finish: state => ({ ...state, loading: false }),
+    })
+    .handle(SET_BUILD, () => ({ ...state, build: action.payload }))
+    .handle(DISCONNECT, initalState)
+    .getState()
 }

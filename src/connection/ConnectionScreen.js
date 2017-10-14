@@ -85,7 +85,7 @@ export default class ConnectionScreen extends Component<Props, State> {
     super(props)
     this.state = {
       loading: new Animated.Value(0),
-      token: props.token,
+      token: this.props.token,
     }
   }
 
@@ -103,7 +103,7 @@ export default class ConnectionScreen extends Component<Props, State> {
             <Icon name="key" style={style.tokenIcon} />
             <Input
               placeholder="Token"
-              value={this.state.token}
+              value={this.props.token}
               onChangeText={(text => this.setState({ token: text }))}
               style={style.tokenInput}
             />
@@ -137,7 +137,7 @@ export default class ConnectionScreen extends Component<Props, State> {
     if (this.props.connected) {
       this.props.disconnect()
     } else {
-      this.props.connect(this.state.token)
+      this.props.connect(this.state.token || this.props.token)
     }
   }
 }
