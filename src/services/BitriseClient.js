@@ -63,29 +63,31 @@ export default class BitriseClient {
     this.token = token
   }
 
-  request(path: string): Promise<any> {
-    return fetch(`${this.url}/${path}`, {
+  async request(path: string): Promise<any> {
+    const response = await fetch(`${this.url}/${path}`, {
       headers: {
         Authorization: `token ${this.token}`,
       },
-    }).then((response) => {
-      return response.json()
     })
+    if (response.status !== 200) {
+      throw new Error()
+    }
+    return response.json().data
   }
 
   account(): Promise<Account> {
-    return this.request('me').then((response: { data: Account }) => response.data)
+    return this.request('me')
   }
 
   apps(): Promise<Array<App>> {
-    return this.request('me/apps').then((response: { data: Array<App>, paging: Paging }) => response.data)
+    return this.request('me/apps')
   }
 
   builds(app: string): Promise<Array<Build>> {
-    return this.request(`apps/${app}/builds`).then((response: { data: Array<Build>, paging: Paging }) => response.data)
+    return this.request(`apps/${app}/builds`)
   }
 
   build(app: string, build: string): Promise<Build> {
-    return this.request(`apps/${app}/builds/${build}`).then((response: { data: Build }) => response.data)
+    return this.request(`apps/${app}/builds/${build}`)
   }
 }

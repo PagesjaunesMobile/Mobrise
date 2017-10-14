@@ -16,17 +16,16 @@ export const DISCONNECT = 'DISCONNECT'
 const CONNECT_SUCCESS = 'CONNECT_SUCCESS'
 const CONNECT_FAIL = 'CONNECT_FAIL'
 
-export const connect = (token: string) => (dispatch:(any) => void, getState:() => State, { bitrise } : { bitrise: BitriseClient }) => {
+export const connect = (token: string) => async (dispatch:(any) => void, getState:() => State, { bitrise } : { bitrise: BitriseClient }) => {
   dispatch({ type: CONNECT })
   bitrise.setToken(token)
-  bitrise.account().then((account: Account) => {
-    dispatch({
-      type: CONNECT_SUCCESS,
-      account,
-      token,
-    })
-    dispatch(navigateToApps())
+  const account = await bitrise.account()
+  dispatch({
+    type: CONNECT_SUCCESS,
+    account,
+    token,
   })
+  dispatch(navigateToApps())
 }
 
 export const disconnect = () => ({

@@ -26,23 +26,25 @@ const initalState: State = {
   build: null,
 }
 
-export const getApps = () => (dispatch:(any) => void, getState:() => State, { bitrise } : { bitrise : BitriseClient }) => {
+export const getApps = () => async (dispatch:(any) => void, getState:() => State, { bitrise } : { bitrise : BitriseClient }) => {
   dispatch({ type: LOADING_APPS })
-  bitrise.apps().then((apps: Array<App>) => {
+  try {
+    const apps = await bitrise.apps()
     dispatch({ type: LOADED_APPS, apps })
-  }).catch(() => {
+  } catch (err) {
     dispatch({ type: LOADED })
-  })
+  }
 }
 
-export const openApp = (app: App) => (dispatch:(any) => void, getState:() => State, { bitrise } : { bitrise : BitriseClient }) => {
+export const openApp = (app: App) => async (dispatch:(any) => void, getState:() => State, { bitrise } : { bitrise : BitriseClient }) => {
   dispatch(navigateToApp(app))
   dispatch({ type: LOADING_APP })
-  bitrise.builds(app.slug).then((builds: Array<Build>) => {
+  try {
+    const builds = await bitrise.builds(app.slug)
     dispatch({ type: LOADED_APP, builds })
-  }).catch(() => {
+  } catch (err) {
     dispatch({ type: LOADED })
-  })
+  }
 }
 
 export const openBuild = (build: Build) => (dispatch:(any) => void) => {
