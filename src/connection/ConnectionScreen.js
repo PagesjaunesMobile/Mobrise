@@ -16,11 +16,16 @@ const style = EStyleSheet.create({
     alignItems: 'center',
     paddingTop: 50,
   },
-  banner: {
-    width: 400,
+  bannerContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 20,
     height: 100,
+  },
+  banner: {
+    flexShrink : 1,
     resizeMode: 'contain',
-    marginBottom: 50,
+    maxHeight: 100,
   },
   tokenContainer: {
     flex:1,
@@ -36,6 +41,7 @@ const style = EStyleSheet.create({
   },
   tokenIcon: {
     color: '$purple',
+    backgroundColor: 'transparent',
   },
   tokenInput: {
     color: '$darkGrey',
@@ -95,9 +101,9 @@ export default class ConnectionScreen extends Component<Props, State> {
     }
     return (
       <View style={style.container}>
-
-        <Image source={require('../assets/banner.png')} style={style.banner} />
-
+        <View style={style.bannerContainer}>
+          <Image source={require('../assets/banner.png')} style={style.banner} />
+        </View>
         <View style={style.tokenContainer}>
           <Item rounded style={style.tokenItem}>
             <Icon name="key" style={style.tokenIcon} />
