@@ -5300,10 +5300,6 @@ rebound@^0.0.13:
   version "0.0.13"
   resolved "https://registry.yarnpkg.com/rebound/-/rebound-0.0.13.tgz#4a225254caf7da756797b19c5817bf7a7941fac1"
 
-redux-inject@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/redux-inject/-/redux-inject-1.0.2.tgz#a625c2567c9028f5cfb4bfd4707c215e92fefaab"
-
 redux-logger@^2.7.4:
   version "2.10.2"
   resolved "https://registry.yarnpkg.com/redux-logger/-/redux-logger-2.10.2.tgz#3c5a5f0a6f32577c1deadf6655f257f82c6c3937"

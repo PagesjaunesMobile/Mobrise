@@ -8,10 +8,13 @@ import { createAction, actionHandler } from '../utils'
 const GET_APPS = createAction('GET_APPS')
 const GET_APP = createAction('GET_APP')
 const SET_BUILD = createAction('SET_BUILD')
+const CLEAR_APPS = createAction('CLEAR_APPS')
+const CLEAR_APP = createAction('CLEAR_APP')
 
 type State = {
   loading: boolean,
   apps: ?Array<App>,
+  app: ?App,
   builds: ?Array<Build>,
   build: ?Build,
 }
@@ -21,17 +24,25 @@ const initalState: State = {
   apps: null,
   builds: null,
   build: null,
+  app: null,
 }
 
-export const openApps = () => ({ bitrise } : { bitrise : BitriseClient }) => ([
+const getApps = () => ({ bitrise } : { bitrise : BitriseClient }) => GET_APPS.createAsync(bitrise.apps())
+export const openApps = () => ([
   navigateToApps(),
-  GET_APPS.createAsync(bitrise.apps()),
+  CLEAR_APPS.create(),
+  getApps(),
 ])
+export const refreshApps = getApps
 
-export const openApp = (app: App) => ({ bitrise } : { bitrise : BitriseClient, dispatch: any }) => ([
+const getApp = (app: App) => ({ bitrise } : { bitrise : BitriseClient }) => GET_APP.createAsync(bitrise.builds(app.slug).then(builds => ({ builds, app })))
+export const openApp = (app: App) => ([
   navigateToApp(app),
-  GET_APP.createAsync(bitrise.builds(app.slug)),
+  CLEAR_APP.create(),
+  getApp(app),
 ])
+export const refreshApp = () => ({ getState }: { getState: () => any }) => getApp(getState().dashboard.app)
+
 
 export const openBuild = (build: Build) => ([
   navigateToBuild(build),
@@ -41,17 +52,19 @@ export const openBuild = (build: Build) => ([
 
 export default (state: State = initalState, action: any) => {
   return actionHandler(state, action)
+    .handle(CLEAR_APPS, { ...state, apps: null, app: null, builds: null, build: null })
     .handleAsync(GET_APPS, {
-      start: state => ({ ...state, apps: null, builds: null, build: null, loading: true }),
+      start: state => ({ ...state, loading: true }),
       success: state => ({ ...state, apps: action.payload }),
       finish: state => ({ ...state, loading: false }),
     })
+    .handle(CLEAR_APP, { ...state, app: null, builds: null, build: null })
     .handleAsync(GET_APP, {
-      start: state => ({ ...state, builds: null, build: null, loading: true }),
-      success: state => ({ ...state, builds: action.payload }),
+      start: state => ({ ...state, loading: true }),
+      success: state => ({ ...state, builds: action.payload.builds, app: action.payload.app }),
       finish: state => ({ ...state, loading: false }),
     })
-    .handle(SET_BUILD, () => ({ ...state, build: action.payload }))
+    .handle(SET_BUILD, { ...state, build: action.payload })
     .handle(DISCONNECT, initalState)
     .getState()
 }

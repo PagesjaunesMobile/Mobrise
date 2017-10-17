@@ -9,7 +9,7 @@ import Expo from 'expo'
 import { reduxify } from '../utils'
 import ConnectionScreen from '../connection/ConnectionScreen'
 import AppList from '../dashboard/AppList'
-import BuildList from '../dashboard/BuildList'
+import AppView from '../dashboard/AppView'
 import BuildView from '../dashboard/BuildView'
 import style from '../style'
 
@@ -21,8 +21,8 @@ export const Navigator = StackNavigator({
   Apps: {
     screen: AppList,
   },
-  Builds: {
-    screen: BuildList,
+  App: {
+    screen: AppView,
   },
   Build: {
     screen: BuildView,

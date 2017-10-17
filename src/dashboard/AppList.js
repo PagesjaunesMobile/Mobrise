@@ -1,11 +1,11 @@
 // @flow
 
 import React, { Component } from 'react'
-import { Platform } from 'react-native'
-import { List, ListItem, Text, Spinner, View, Body, Right, Left, Icon } from 'native-base'
+import { Platform, FlatList } from 'react-native'
+import { ListItem, Text, Spinner, View, Body, Right, Left, Icon } from 'native-base'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import { reduxify } from '../utils'
-import { openApp } from './dashboardReducer'
+import { openApp, refreshApps } from './dashboardReducer'
 import type { App } from '../services/BitriseClient'
 
 const style = EStyleSheet.create({
@@ -25,12 +25,14 @@ type Props = {
   loading: boolean,
   apps: Array<App>,
   openApp: (App) => void,
+  refreshApps: () => void,
 }
 @reduxify(state => ({
   loading: state.dashboard.loading,
   apps: state.dashboard.apps,
 }), {
   openApp,
+  refreshApps,
 })
 export default class AppList extends Component<Props, void> {
 
@@ -41,13 +43,13 @@ export default class AppList extends Component<Props, void> {
   render() {
     return (
       <View style={style.container}>
-        {
-          this.props.loading &&
-          <Spinner color={EStyleSheet.flatten(style.spinner).color} />
-        }
-        <List
-          dataArray={this.props.apps || []}
-          renderRow={(app: App) => (
+        <FlatList
+          data={this.props.apps}
+          keyExtractor={app => app.slug}
+          refreshControl={this.props.loading ? <Spinner color={EStyleSheet.flatten(style.spinner).color} /> : null}
+          refreshing={this.props.loading}
+          onRefresh={this.props.refreshApps}
+          renderItem={({ item: app }: { item: App }) => ( // eslint-disable-line react/no-unused-prop-types
             <ListItem disabled={app.is_disabled} icon onPress={() => { this.props.openApp(app) }} style={style.listItem}>
               <Left>
                 <Icon
@@ -69,5 +71,4 @@ export default class AppList extends Component<Props, void> {
       </View>
     )
   }
-
 }

@@ -19,7 +19,7 @@ export function navigateToApps() {
 
 export function navigateToApp(app: App) {
   return NavigationActions.navigate({
-    routeName: 'Builds',
+    routeName: 'App',
     params: { title: app.title },
   })
 }

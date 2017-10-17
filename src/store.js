@@ -4,8 +4,7 @@ import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
 import { persistStore, autoRehydrate } from 'redux-persist'
 import { AsyncStorage } from 'react-native'
 import { middleware as pack } from 'redux-pack'
-import inject from 'redux-inject'
-import { multiActionsMiddleware as multiActions } from './utils'
+import { multiActionsMiddleware as multiActions, injectMiddleware as inject } from './utils'
 import navigation from './navigation/navigationReducer'
 import connection from './connection/connectionReducer'
 import dashboard from './dashboard/dashboardReducer'
@@ -21,8 +20,8 @@ const store = createStore(combineReducers({
   dashboard,
 }), composeEnhancers(
   applyMiddleware(
-    inject({ bitrise: new BitriseClient(), dispatch: (action: any) => store.dispatch(action) }),
     multiActions,
+    inject({ bitrise: new BitriseClient(), dispatch: (action: any) => store.dispatch(action), getState: () => store.getState() }),
     pack,
   ),
   autoRehydrate(),

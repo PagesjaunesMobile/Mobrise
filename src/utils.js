@@ -15,6 +15,12 @@ export const multiActionsMiddleware = () => (next: any) => (actions: any) => {
   actions.forEach(next)
 }
 
+export const injectMiddleware = (deps: any) => () => (next: any) => (action: any | Function) => {
+  while (typeof action === 'function') {
+    action = action(deps)
+  }
+  next(action)
+}
 
 export const createAction = (type: string) => ({
   type,
