@@ -1,5 +1,7 @@
 // @flow
 
+import querystring from 'querystring'
+
 export type Account = {
   username: string,
 }
@@ -45,9 +47,14 @@ export type Build = {
 }
 
 export type Paging = {
-  next: string,
+  next?: string,
   page_item_limit: number,
   total_item_count: number,
+}
+
+export type Response<T> = {
+  paging: Paging,
+  data: T,
 }
 
 export default class BitriseClient {
@@ -63,8 +70,8 @@ export default class BitriseClient {
     this.token = token
   }
 
-  async request(path: string): Promise<any> {
-    const response = await fetch(`${this.url}/${path}`, {
+  async request(path: string, params?: any): Promise<any> {
+    const response = await fetch(`${this.url}/${path}?${params ? querystring.stringify(params) : ''}`, {
       headers: {
         Authorization: `token ${this.token}`,
       },
@@ -72,23 +79,22 @@ export default class BitriseClient {
     if (response.status !== 200) {
       throw new Error()
     }
-    const json = await response.json()
-    return json.data
+    return response.json()
   }
 
-  account(): Promise<Account> {
+  account(): Promise<Response<Account>> {
     return this.request('me')
   }
 
-  apps(): Promise<Array<App>> {
-    return this.request('me/apps')
+  apps(next?: string): Promise<Response<Array<App>>> {
+    return this.request('me/apps', { next })
   }
 
-  builds(app: string): Promise<Array<Build>> {
-    return this.request(`apps/${app}/builds`)
+  builds(app: string, next?: string): Promise<Response<Array<Build>>> {
+    return this.request(`apps/${app}/builds`, { next })
   }
 
-  build(app: string, build: string): Promise<Build> {
+  build(app: string, build: string): Promise<Response<Build>> {
     return this.request(`apps/${app}/builds/${build}`)
   }
 }

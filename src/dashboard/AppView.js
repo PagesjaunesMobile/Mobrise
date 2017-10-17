@@ -7,7 +7,7 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 import BuildStatusBadge from './BuildStatusBadge'
 import BuildBranchBadge from './BuildBranchBadge'
 import { reduxify } from '../utils'
-import { openBuild, refreshApp } from './dashboardReducer'
+import { openBuild, refreshApp, loadMoreBuilds } from './dashboardReducer'
 import type { Build } from '../services/BitriseClient'
 
 
@@ -29,13 +29,17 @@ type Props = {
   builds: Array<Build>,
   openBuild: (Build) => void,
   refreshApp: () => void,
+  loadMoreBuilds: () => void,
+  hasMore: boolean,
 }
 @reduxify(state => ({
   loading: state.dashboard.loading,
   builds: state.dashboard.builds,
+  hasMore: state.dashboard.hasMore,
 }), {
   openBuild,
   refreshApp,
+  loadMoreBuilds,
 })
 export default class BuildList extends Component<Props, void> {
 
@@ -52,6 +56,8 @@ export default class BuildList extends Component<Props, void> {
           refreshing={this.props.loading}
           refreshControl={this.props.loading ? <Spinner color={EStyleSheet.flatten(style.spinner).color} /> : null}
           onRefresh={this.props.refreshApp}
+          onEndReached={() => { if (this.props.hasMore) this.props.loadMoreBuilds() }}
+          onEndReachedThreshold={10}
           renderItem={({ item: build } : { item: Build }) => ( // eslint-disable-line react/no-unused-prop-types
             <ListItem icon onPress={() => { this.props.openBuild(build) }} style={{ backgroundColor: 'transparent' }}>
               <Left>

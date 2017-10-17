@@ -5,7 +5,7 @@ import { Platform, FlatList } from 'react-native'
 import { ListItem, Text, Spinner, View, Body, Right, Left, Icon } from 'native-base'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import { reduxify } from '../utils'
-import { openApp, refreshApps } from './dashboardReducer'
+import { openApp, refreshApps, loadMoreApps } from './dashboardReducer'
 import type { App } from '../services/BitriseClient'
 
 const style = EStyleSheet.create({
@@ -26,13 +26,17 @@ type Props = {
   apps: Array<App>,
   openApp: (App) => void,
   refreshApps: () => void,
+  loadMoreApps: () => void,
+  hasMore: boolean,
 }
 @reduxify(state => ({
   loading: state.dashboard.loading,
   apps: state.dashboard.apps,
+  hasMore: state.dashboard.hasMore,
 }), {
   openApp,
   refreshApps,
+  loadMoreApps,
 })
 export default class AppList extends Component<Props, void> {
 
@@ -49,6 +53,8 @@ export default class AppList extends Component<Props, void> {
           refreshControl={this.props.loading ? <Spinner color={EStyleSheet.flatten(style.spinner).color} /> : null}
           refreshing={this.props.loading}
           onRefresh={this.props.refreshApps}
+          onEndReached={() => { if (this.props.hasMore) this.props.loadMoreApps() }}
+          onEndReachedThreshold={10}
           renderItem={({ item: app }: { item: App }) => ( // eslint-disable-line react/no-unused-prop-types
             <ListItem disabled={app.is_disabled} icon onPress={() => { this.props.openApp(app) }} style={style.listItem}>
               <Left>
