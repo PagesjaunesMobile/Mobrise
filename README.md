@@ -1,4 +1,4 @@
-t<img src="https://github.com/Mikadoh/Mobrise/raw/master/src/assets/banner.png" height="200" />
+<img src="https://github.com/Mikadoh/Mobrise/raw/master/src/assets/banner.png" height="200" />
 
 
 # Mobrise
