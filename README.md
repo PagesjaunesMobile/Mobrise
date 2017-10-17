@@ -1,9 +1,9 @@
-<img src="https://github.com/Mikadoh/Mobrise/raw/master/src/assets/banner.png" height="200" />
+<img src="https://github.com/PagesjaunesMobile/Mobrise/raw/master/src/assets/banner.png" height="200" />
 
 
 # Mobrise
 [![Build Status](https://www.bitrise.io/app/28bd8b82304d63c3/status.svg?token=7_Vdp2MoJ3cDK7J1zyztyg&branch=master)](https://www.bitrise.io/app/28bd8b82304d63c3) 
-[![Latest Release](http://github-release-version.herokuapp.com/github/Mikadoh/Mobrise/release.svg?style=flatr)](https://github.com/Mikadoh/Mobrise/releases/latest) 
+[![Latest Release](http://github-release-version.herokuapp.com/github/PagesjaunesMobile/Mobrise/release.svg?style=flatr)](https://github.com/Mikadoh/Mobrise/releases/latest) 
 
 This is an unofficial open-source iOS and Android client for the [bitrise.io](http://bitrise.io) public API.  
 The app is build with React Native / Expo  
