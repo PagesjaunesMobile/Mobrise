@@ -1,4 +1,4 @@
-<img src="https://github.com/Mikadoh/Mobrise/raw/master/src/assets/banner.png" height="200" />
+t<img src="https://github.com/Mikadoh/Mobrise/raw/master/src/assets/banner.png" height="200" />
 
 
 # Mobrise
@@ -26,7 +26,7 @@ Current version is still in alpha stage.
 
 ## Generate Token
 
-In order to connect to your bitrise account with Mobrise you need to [generare a new token](https://www.bitrise.io/me/profile#/security) and copy/paste it in the application.
+In order to connect to your bitrise account with Mobrise you need to [generate a new token](https://www.bitrise.io/me/profile#/security) and copy/paste it in the application.
 
 
 ## Support / Contributing
