@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { addNavigationHelpers, StackNavigator, NavigationActions } from 'react-navigation'
 import { BackHandler, Platform } from 'react-native'
 import autobind from 'autobind-decorator'
@@ -50,7 +50,7 @@ type Props = {
 }
 
 @reduxify(state => ({ navigation: state.navigation }))
-export default class NavigationScreen extends Component<Props, void> {
+export default class NavigationScreen extends PureComponent<Props, void> {
 
   constructor(props: Props) {
     super(props)

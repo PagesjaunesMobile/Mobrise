@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Animated, Image } from 'react-native'
 import { View, Item, Icon, Input, Button, Text } from 'native-base'
 import EStyleSheet from 'react-native-extended-stylesheet'
@@ -78,7 +78,7 @@ type State = {
   connect,
   disconnect,
 })
-export default class ConnectionScreen extends Component<Props, State> {
+export default class ConnectionScreen extends PureComponent<Props, State> {
 
   static navigationOptions = {
     header: null,

@@ -1,6 +1,6 @@
 // @flow
 
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { View, ScrollView } from 'react-native'
 import { Card, CardItem, Text, Left, Body } from 'native-base'
 import EStyleSheet from 'react-native-extended-stylesheet'
@@ -22,7 +22,7 @@ type Props = {
 @reduxify(state => ({
   build: state.dashboard.build,
 }))
-export default class BuildView extends Component<Props, void> {
+export default class BuildView extends PureComponent<Props, void> {
 
   static navigationOptions = ({ navigation }) => ({
     title: navigation.state.params.title,

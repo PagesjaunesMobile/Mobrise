@@ -2,7 +2,7 @@
 
 // $FlowFixMe
 import Expo from 'expo'
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 import { Provider } from 'react-redux'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import store, { persistor } from './store'
@@ -13,7 +13,7 @@ EStyleSheet.build(style)
 
 type State = { isReady: boolean }
 
-export default class App extends Component<void, State> {
+export default class App extends PureComponent<void, State> {
 
   state: State
 
@@ -24,12 +24,13 @@ export default class App extends Component<void, State> {
     }
   }
 
-  async componentWillMount() {
-    await Expo.Font.loadAsync({
+  componentWillMount() {
+    Expo.Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
+    }).then(() => {
+      this.setState({ isReady: true })
     })
-    this.setState({ isReady: true })
   }
 
   render() {

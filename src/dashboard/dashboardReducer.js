@@ -15,6 +15,7 @@ const LOAD_MORE_BUILDS = createAction('LOAD_MORE_BUILDS')
 
 type State = {
   loading: boolean,
+  loadingMore: boolean,
   apps: ?Array<App>,
   appsPaging: ?Paging,
   app: ?App,
@@ -26,6 +27,7 @@ type State = {
 
 const initalState: State = {
   loading: false,
+  loadingMore: false,
   apps: null,
   builds: null,
   build: null,
@@ -66,11 +68,7 @@ export const refreshApp = () => ({ getState }: { getState: () => any }) => (
 export const loadMoreBuilds = () => ({ bitrise, getState } : { bitrise : BitriseClient, getState: () => any }) => {
   const { dashboard } = getState()
   if (dashboard.hasMore) {
-    console.log(JSON.stringify(dashboard.buildsPaging))
-    return LOAD_MORE_BUILDS.createAsync(bitrise.builds(dashboard.app.slug, dashboard.buildsPaging.next).then((response) => {
-      console.log(JSON.stringify(response))
-      return response
-    }))
+    return LOAD_MORE_BUILDS.createAsync(bitrise.builds(dashboard.app.slug, dashboard.buildsPaging.next))
   }
   return null
 }
@@ -89,9 +87,9 @@ export default (state: State = initalState, action: any) => {
       finish: (state: State) => ({ ...state, loading: false }),
     })
     .handleAsync(LOAD_MORE_APPS, {
-      start: (state: State) => ({ ...state, loading: true, hasMore: false }),
+      start: (state: State) => ({ ...state, loadingMore: true, hasMore: false }),
       success: (state: State) => ({ ...state, apps: [...state.apps || [], ...action.payload.data || []], appsPaging: action.payload.paging, hasMore: !!action.payload.paging.next }),
-      finish: (state: State) => ({ ...state, loading: false }),
+      finish: (state: State) => ({ ...state, loadingMore: false }),
       failure: (state: State) => ({ ...state, hasMore: true }),
     })
     .handle(CLEAR_APP, { ...state, app: null, builds: null, build: null, buildsPaging: null })
@@ -101,9 +99,9 @@ export default (state: State = initalState, action: any) => {
       finish: (state: State) => ({ ...state, loading: false }),
     })
     .handleAsync(LOAD_MORE_BUILDS, {
-      start: (state: State) => ({ ...state, loading: true, hasMore: false }),
+      start: (state: State) => ({ ...state, loadingMore: true, hasMore: false }),
       success: (state: State) => ({ ...state, builds: [...state.builds || [], ...action.payload.data || []], buildsPaging: action.payload.paging, hasMore: !!action.payload.paging.next }),
-      finish: (state: State) => ({ ...state, loading: false }),
+      finish: (state: State) => ({ ...state, loadingMore: false }),
       failure: (state: State) => ({ ...state, hasMore: true }),
     })
     .handle(SET_BUILD, { ...state, build: action.payload })
