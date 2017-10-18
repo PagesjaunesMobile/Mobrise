@@ -1,6 +1,5 @@
 {
   "name": "Mobrise",
-  "version": "dev",
   "private": true,
   "main": "./node_modules/react-native-scripts/build/bin/crna-entry.js",
   "scripts": {
@@ -9,11 +8,15 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "postinstall": "rndebugger-open; (find node_modules -type f -name .babelrc | grep -v /react-native/ | xargs rm) || true"
+    "postinstall": "rndebugger-open; (find node_modules -type f -name .babelrc | grep -v /react-native/ | xargs rm) || true",
+    "lint": "echo 'Executing ESLint...' && eslint ./ --cache --ignore-pattern .gitignore"
   },
   "jest": {
     "preset": "jest-expo"
   },
+  "pre-commit": [
+    "lint"
+  ],
   "dependencies": {
     "@expo/vector-icons": "^5.2.0",
     "autobind-decorator": "^2.1.0",
@@ -21,6 +24,7 @@
     "expo": "^21.0.0",
     "global": "^4.3.2",
     "native-base": "^2.3.1",
+    "pre-commit": "^1.2.2",
     "react": "16.0.0-alpha.12",
     "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
     "react-native-extended-stylesheet": "^0.7.0",
