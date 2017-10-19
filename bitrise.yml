@@ -1,0 +1,85 @@
+---
+format_version: '4'
+default_step_lib_source: https://github.com/bitrise-io/bitrise-steplib.git
+project_type: other
+trigger_map:
+- pull_request_source_branch: "*"
+  pull_request_target_branch: master
+  workflow: publish
+- tag: "*"
+  workflow: publish
+workflows:
+  publish:
+    steps:
+    - script:
+        title: Publish Expo
+        inputs:
+        - content: |-
+            set -e
+            set -x
+
+            if [[ $BITRISE_GIT_TAG != v* ]]; then
+            echo "[ERROR] Invalid tag"
+              exit 1
+            fi
+
+            yarn global add json
+            json  -If package.json -e "this.version='${BITRISE_GIT_TAG:1}'"
+
+            exp p
+    before_run:
+    - _prepare
+    - _prepare-expo
+  _prepare:
+    steps:
+    - activate-ssh-key:
+        run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
+    - git-clone: {}
+    - cache-pull@2.0.0: {}
+    - nvm@1.0.1:
+        inputs:
+        - node_version: node
+    - recursive-touch@0.9.0: {}
+    - script:
+        title: Yarn Install
+        inputs:
+        - content: |
+            set -e
+            set -x
+
+            npm i -g yarn
+
+            set +e
+            yarn install
+            set -e
+
+            cache="$(yarn cache dir)"
+
+            envman add --key YARN_CACHE_DIR --value "$cache"
+    - cache-push@2.0.2:
+        inputs:
+        - cache_paths: "$YARN_CACHE_DIR"
+  _prepare-expo:
+    steps:
+    - script:
+        title: Prepare Expo
+        inputs:
+        - content: |
+            set -e
+            set -x
+
+            yarn global add exp
+
+            exp login -u $EXPO_USER -p $EXPO_PASSWORD
+  lint:
+    steps:
+    - script:
+        title: Lint
+        inputs:
+        - content: |-
+            set -e
+            set -x
+
+            yarn run lint
+    before_run:
+    - _prepare
