@@ -13,6 +13,7 @@
     "sdkVersion": "21.0.0",
     "ios": {
       "bundleIdentifier": "fr.pagesjaunes.mobrise",
+      "icon": "./src/assets/banner.png",
       "config": {
         "usesNonExemptEncryption": false
       },
