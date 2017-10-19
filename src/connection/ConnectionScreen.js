@@ -3,8 +3,8 @@
 import React, { PureComponent } from 'react'
 import { Image, TouchableOpacity } from 'react-native'
 import { View, Item, Icon, Input, Button, Text } from 'native-base'
+import { WebBrowser } from 'expo'
 import EStyleSheet from 'react-native-extended-stylesheet'
-import autobind from 'autobind-decorator'
 import { reduxify } from '../utils'
 import { connect, disconnect } from './connectionReducer'
 
@@ -13,8 +13,9 @@ const style = EStyleSheet.create({
     backgroundColor: '$green',
     flex: 1,
     flexDirection: 'column',
-    alignItems: 'center',
-    paddingTop: 50,
+    alignItems: 'stretch',
+    justifyContent: 'center',
+    paddingTop: 20,
   },
   bannerContainer: {
     flexDirection: 'row',
@@ -27,17 +28,21 @@ const style = EStyleSheet.create({
     resizeMode: 'contain',
     maxHeight: 100,
   },
+  contentContainer: { flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+  },
   tokenContainer: {
     flex:1,
     flexDirection: 'row',
     alignItems: 'center',
-    borderColor:'red',
     minHeight:50,
   },
   tokenItem: {
     backgroundColor: '$lightGrey',
     marginLeft: 10,
     marginRight: 10,
+    borderColor: 'white',
   },
   tokenIcon: {
     color: '$purple',
@@ -54,9 +59,15 @@ const style = EStyleSheet.create({
     color: '$darkGrey',
   },
   connectContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    minHeight: 100,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+  },
+  generateTokenButton: {
+    borderColor: 'white',
+  },
+  generateTokenText: {
+    color: 'white',
   },
   connectButton: {
     backgroundColor: '$purple',
@@ -68,6 +79,13 @@ const style = EStyleSheet.create({
   versionText: {
     color: 'white',
     marginBottom: 5,
+    alignSelf: 'center',
+  },
+  informationIcon: {
+    position: 'absolute',
+    bottom: 0,
+    right: 5,
+    color: 'white',
   },
 })
 
@@ -106,7 +124,9 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
         <View style={style.bannerContainer}>
           <Image source={require('../assets/banner.png')} style={style.banner} />
         </View>
-        <View style={style.tokenContainer}>
+
+        <View style={style.contentContainer}>
+          <View />
           <Item rounded style={style.tokenItem}>
             <Icon name="key" style={style.tokenIcon} />
             <Input
@@ -119,26 +139,21 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
               <Icon name="close" style={style.tokenIcon} />
             </TouchableOpacity>
           </Item>
+          <View style={style.connectContainer}>
+            <Button rounded bordered style={style.generateTokenButton} onPress={() => WebBrowser.openBrowserAsync('https://www.bitrise.io/me/profile#/security')}>
+              <Text style={style.generateTokenText}>Generate Token</Text>
+            </Button>
+            <Button rounded style={style.connectButton} onPress={() => this.props.connect(this.state.token)}>
+              <Text>Connect</Text>
+              <Icon name="arrow-forward" />
+            </Button>
+          </View>
+          <View />
+          <View />
         </View>
-
-        <View style={style.connectContainer}>
-          <Button
-            rounded
-            style={style.connectButton}
-            onPress={this.connect}
-          >
-            <Text>Connect</Text>
-            <Icon name="arrow-forward" />
-          </Button>
-        </View>
-        <View style={style.bottomSpacer} />
         <Text style={style.versionText}>{`Version: ${require('../../package.json').version || 'dev'}`}</Text>
+        <Icon style={style.informationIcon} name="information-circle" onPress={() => WebBrowser.openBrowserAsync('https://github.com/PagesjaunesMobile/Mobrise')} />
       </View>
     )
-  }
-
-  @autobind
-  connect() {
-    this.props.connect(this.state.token)
   }
 }
