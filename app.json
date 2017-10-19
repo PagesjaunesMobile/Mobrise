@@ -2,7 +2,7 @@
   "expo": {
     "name": "Mobrise",
     "slug": "mobrise",
-    "icon": "./src/assets/logo-alpha.png",
+    "icon": "./src/assets/logo.png",
     "loading": {
       "icon": "./src/assets/banner.png",
       "backgroundColor": "#3bc3a3",
@@ -10,6 +10,15 @@
     },
     "privacy": "unlisted",
     "description": "Unofficial Bitrise.io mobile client",
-    "sdkVersion": "21.0.0"
+    "sdkVersion": "21.0.0",
+    "ios": {
+      "bundleIdentifier": "fr.pagesjaunes.mobrise",
+      "config": {
+        "usesNonExemptEncryption": false,
+      },
+      "splash": {
+        "backgroundColor": "#3bc3a3",
+      }
+    }
   }
 }
