@@ -17,7 +17,8 @@
         "usesNonExemptEncryption": false
       },
       "splash": {
-        "backgroundColor": "#3bc3a3"
+        "backgroundColor": "#3bc3a3",
+        "image": "./src/assets/banner.png"
       }
     }
   }
