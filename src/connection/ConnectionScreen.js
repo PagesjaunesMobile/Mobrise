@@ -15,7 +15,7 @@ const style = EStyleSheet.create({
     flexDirection: 'column',
     alignItems: 'stretch',
     justifyContent: 'center',
-    paddingTop: 20,
+    paddingTop: 30,
   },
   bannerContainer: {
     flexDirection: 'row',
