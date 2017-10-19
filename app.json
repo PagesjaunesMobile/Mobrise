@@ -6,7 +6,7 @@
     "loading": {
       "icon": "./src/assets/banner.png",
       "backgroundColor": "#3bc3a3",
-      "hideExponentText": true,
+      "hideExponentText": true
     },
     "privacy": "unlisted",
     "description": "Unofficial Bitrise.io mobile client",
@@ -14,10 +14,10 @@
     "ios": {
       "bundleIdentifier": "fr.pagesjaunes.mobrise",
       "config": {
-        "usesNonExemptEncryption": false,
+        "usesNonExemptEncryption": false
       },
       "splash": {
-        "backgroundColor": "#3bc3a3",
+        "backgroundColor": "#3bc3a3"
       }
     }
   }
