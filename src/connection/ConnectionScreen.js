@@ -65,6 +65,10 @@ const style = EStyleSheet.create({
   bottomSpacer: {
     flex: 2,
   },
+  versionText: {
+    color: 'white',
+    marginBottom: 5,
+  },
 })
 
 type Props = {
@@ -128,6 +132,7 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
           </Button>
         </View>
         <View style={style.bottomSpacer} />
+        <Text style={style.versionText}>{`Version: ${require('../../package.json').version || 'dev'}`}</Text>
       </View>
     )
   }
