@@ -1,7 +1,7 @@
 // @flow
 
 import React, { PureComponent } from 'react'
-import { Animated, Image } from 'react-native'
+import { Image, TouchableOpacity } from 'react-native'
 import { View, Item, Icon, Input, Button, Text } from 'native-base'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import autobind from 'autobind-decorator'
@@ -43,6 +43,13 @@ const style = EStyleSheet.create({
     color: '$purple',
     backgroundColor: 'transparent',
   },
+  tokenIconContainer: {
+    height:40,
+    width:40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+  },
   tokenInput: {
     color: '$darkGrey',
   },
@@ -61,18 +68,13 @@ const style = EStyleSheet.create({
 })
 
 type Props = {
-  connecting: boolean,
-  connected: boolean,
   connect: (string) => void,
-  disconnect: () => void,
   token: string,
 }
 type State = {
-  loading: any,
   token: string,
 }
 @reduxify(state => ({
-  connecting: state.connection.connecting,
   token: state.connection.token,
 }), {
   connect,
@@ -90,15 +92,11 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
   constructor(props: Props) {
     super(props)
     this.state = {
-      loading: new Animated.Value(0),
       token: this.props.token,
     }
   }
 
   render() {
-    if (this.props.connecting) {
-      this.loading()
-    }
     return (
       <View style={style.container}>
         <View style={style.bannerContainer}>
@@ -109,10 +107,13 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
             <Icon name="key" style={style.tokenIcon} />
             <Input
               placeholder="Token"
-              value={this.props.token}
+              value={this.state.token}
               onChangeText={(text => this.setState({ token: text }))}
               style={style.tokenInput}
             />
+            <TouchableOpacity style={style.tokenIconContainer} onPress={() => this.setState({ token: '' })}>
+              <Icon name="close" style={style.tokenIcon} />
+            </TouchableOpacity>
           </Item>
         </View>
 
@@ -120,7 +121,7 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
           <Button
             rounded
             style={style.connectButton}
-            onPress={this.onConnect}
+            onPress={this.connect}
           >
             <Text>Connect</Text>
             <Icon name="arrow-forward" />
@@ -131,19 +132,8 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
     )
   }
 
-  loading() {
-    Animated.timing(this.state.loading, {
-      toValue: 1,
-      duration: 1000,
-    }).start()
-  }
-
   @autobind
-  onConnect() {
-    if (this.props.connected) {
-      this.props.disconnect()
-    } else {
-      this.props.connect(this.state.token || this.props.token)
-    }
+  connect() {
+    this.props.connect(this.state.token)
   }
 }
