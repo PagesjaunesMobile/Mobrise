@@ -1,4 +1,4 @@
-<img src="https://github.com/PagesjaunesMobile/Mobrise/raw/master/src/assets/banner.png" height="200" />
+<img src="https://github.com/PagesjaunesMobile/Mobrise/raw/master/src/assets/banner.png" maxHeight="200" maxWidth="800" />
 
 
 # Mobrise
