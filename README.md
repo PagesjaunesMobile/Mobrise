@@ -22,7 +22,7 @@ Current version is still in alpha stage.
 </a>  
 
 2. Flash the QR Code  
-[![Mobrise](https://lh5.googleusercontent.com/LfSozPH1lvEyUA1KZY56E2jOIHSYwSNsOTDkSk2L_6znjIxkQjACT2Fb3-0WXVQ3j-o6zAxkF_o0f6s=w2501-h1300)](https://expo.io/@mikadoh/mobrise)
+[![Mobrise](https://github.com/PagesjaunesMobile/Mobrise/raw/master/src/assets/qrcode.png)](https://expo.io/@mikadoh/mobrise)
 
 ## Generate Token
 
