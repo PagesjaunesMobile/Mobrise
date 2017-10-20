@@ -82,10 +82,17 @@ const style = EStyleSheet.create({
     alignSelf: 'center',
   },
   informationIcon: {
+    color: 'white',
+    marginRight: 5,
+  },
+  informationIconContainer: {
     position: 'absolute',
     bottom: 0,
-    right: 5,
-    color: 'white',
+    right: 0,
+    width: 40,
+    height: 40,
+    alignItems: 'flex-end',
+    justifyContent: 'flex-end',
   },
 })
 
@@ -152,7 +159,9 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
           <View />
         </View>
         <Text style={style.versionText}>{`Version: ${require('../../package.json').version || 'dev'}`}</Text>
-        <Icon style={style.informationIcon} name="information-circle" onPress={() => WebBrowser.openBrowserAsync('https://github.com/PagesjaunesMobile/Mobrise')} />
+        <TouchableOpacity style={style.informationIconContainer} onPress={() => WebBrowser.openBrowserAsync('https://github.com/PagesjaunesMobile/Mobrise')}>
+          <Icon style={style.informationIcon} name="information-circle" />
+        </TouchableOpacity>
       </View>
     )
   }
