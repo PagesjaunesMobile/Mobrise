@@ -4,7 +4,7 @@
     "slug": "mobrise",
     "icon": "./src/assets/logo.png",
     "loading": {
-      "icon": "./src/assets/banner.png",
+      "icon": "./src/assets/banner-transparent.png",
       "backgroundColor": "#3bc3a3",
       "hideExponentText": true
     },
@@ -13,13 +13,13 @@
     "sdkVersion": "21.0.0",
     "ios": {
       "bundleIdentifier": "fr.pagesjaunes.mobrise",
-      "icon": "./src/assets/banner.png",
+      "icon": "./src/assets/logo.png",
       "config": {
         "usesNonExemptEncryption": false
       },
       "splash": {
         "backgroundColor": "#3bc3a3",
-        "image": "./src/assets/banner.png"
+        "image": "./src/assets/banner-transparent.png"
       }
     }
   }

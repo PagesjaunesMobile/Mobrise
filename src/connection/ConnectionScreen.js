@@ -129,7 +129,7 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
     return (
       <View style={style.container}>
         <View style={style.bannerContainer}>
-          <Image source={require('../assets/banner.png')} style={style.banner} />
+          <Image source={require('../assets/banner-transparent.png')} style={style.banner} />
         </View>
 
         <View style={style.contentContainer}>
