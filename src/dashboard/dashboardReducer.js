@@ -105,6 +105,5 @@ export default (state: State = initalState, action: any) => {
       failure: (state: State) => ({ ...state, hasMore: true }),
     })
     .handle(SET_BUILD, { ...state, build: action.payload })
-    .handle(DISCONNECT, initalState)
     .getState()
 }

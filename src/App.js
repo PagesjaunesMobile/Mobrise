@@ -5,7 +5,7 @@ import Expo from 'expo'
 import React, { PureComponent } from 'react'
 import { Provider } from 'react-redux'
 import EStyleSheet from 'react-native-extended-stylesheet'
-import store, { persistor } from './store'
+import store from './store'
 import NavigationScreen from './navigation/NavigationScreen'
 import style from './style'
 
@@ -38,7 +38,7 @@ export default class App extends PureComponent<void, State> {
       return <Expo.AppLoading />
     }
     return (
-      <Provider store={store} persistor={persistor}>
+      <Provider store={store}>
         <NavigationScreen />
       </Provider>
     )

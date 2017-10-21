@@ -6,7 +6,7 @@ import { View, Item, Icon, Input, Button, Text } from 'native-base'
 import { WebBrowser } from 'expo'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import { reduxify } from '../utils'
-import { connect, disconnect } from './connectionReducer'
+import { connect, disconnect, loadToken, clearToken } from './connectionReducer'
 
 const style = EStyleSheet.create({
   container: {
@@ -97,8 +97,10 @@ const style = EStyleSheet.create({
 })
 
 type Props = {
-  connect: (string) => void,
   token: string,
+  connect: (string) => void,
+  loadToken: () => void,
+  clearToken: () => void,
 }
 type State = {
   token: string,
@@ -108,6 +110,8 @@ type State = {
 }), {
   connect,
   disconnect,
+  loadToken,
+  clearToken,
 })
 export default class ConnectionScreen extends PureComponent<Props, State> {
 
@@ -123,6 +127,14 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
     this.state = {
       token: this.props.token,
     }
+  }
+
+  componentWillMount() {
+    this.props.loadToken()
+  }
+
+  componentWillReceiveProps({ token }: { token: string}) {
+    this.setState({ token })
   }
 
   render() {
@@ -142,7 +154,7 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
               onChangeText={(text => this.setState({ token: text }))}
               style={style.tokenInput}
             />
-            <TouchableOpacity style={style.tokenIconContainer} onPress={() => this.setState({ token: '' })}>
+            <TouchableOpacity style={style.tokenIconContainer} onPress={this.props.clearToken}>
               <Icon name="close" style={style.tokenIcon} />
             </TouchableOpacity>
           </Item>

@@ -1,39 +1,47 @@
 // @flow
 
+import { SecureStore } from 'expo'
 import type BitriseClient from '../services/BitriseClient'
 import { openApps } from '../dashboard/dashboardReducer'
 import { createAction, actionHandler } from '../utils'
 
 type State = (typeof initialState)
 const initialState = {
-  connected: false,
   connecting: false,
   token: '',
   username: '',
 }
 
 const CONNECT = createAction('CONNECT')
-export const DISCONNECT = createAction('DISCONNECT')
+const LOAD_TOKEN = createAction('LOAD_TOKEN')
+const CLEAR_TOKEN = createAction('CLEAR_TOKEN')
 
 export const connect = (token: string) => ({ bitrise, dispatch } : { bitrise: BitriseClient, dispatch: any }) => {
   bitrise.setToken(token)
-  return CONNECT.createAsync(
-    bitrise.account().then(account => ({ account, token })),
-    { onSuccess: () => { dispatch(openApps()) } },
-  )
+  return CONNECT.createAsync(bitrise.account().then(account => ({ account, token })), {
+    onSuccess: () => {
+      dispatch(openApps())
+      SecureStore.setItemAsync('TOKEN', token)
+    },
+  })
 }
 
-export const disconnect = () => DISCONNECT.create()
+export const loadToken = () => LOAD_TOKEN.createAsync(SecureStore.getItemAsync('TOKEN'))
+export const clearToken = () => CLEAR_TOKEN.createAsync(SecureStore.deleteItemAsync('TOKEN'))
 
 export default (state: State = initialState, action: any) => {
-  const { token, account } = action.payload || {}
+  const { payload } = action
   return actionHandler(state, action)
     .handleAsync(CONNECT, {
       start: state => ({ ...state, connecting: true }),
-      success: state => ({ ...state, connected: true, token, username: account.username }),
-      failure: state => ({ ...state, connected: false }),
+      success: state => ({ ...state, username: payload.username }),
       finish: state => ({ ...state, connecting: false }),
     })
-    .handle(DISCONNECT, initialState)
+    .handleAsync(LOAD_TOKEN, {
+      success: state => ({ ...state, token: payload }),
+    })
+    .handleAsync(CLEAR_TOKEN, {
+      success: state => ({ ...state, token: '' }),
+    })
     .getState()
 }
