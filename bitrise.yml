@@ -6,8 +6,10 @@ trigger_map:
 - pull_request_source_branch: "*"
   pull_request_target_branch: master
   workflow: publish
-- tag: "*"
+- tag: v*
   workflow: publish
+- tag: ios-*
+  workflow: ios
 workflows:
   publish:
     steps:
@@ -18,28 +20,21 @@ workflows:
             set -e
             set -x
 
-            if [[ $BITRISE_GIT_TAG != v* ]]; then
-            echo "[ERROR] Invalid tag"
-              exit 1
-            fi
-
-            yarn global add json
-            json  -If package.json -e "this.version='${BITRISE_GIT_TAG:1}'"
-
             exp p
     before_run:
     - _prepare
     - _prepare-expo
+    - _prepare_version
   _prepare:
     steps:
     - activate-ssh-key:
         run_if: '{{getenv "SSH_RSA_PRIVATE_KEY" | ne ""}}'
     - git-clone: {}
-    - cache-pull@2.0.0: {}
-    - nvm@1.0.1:
+    - cache-pull: {}
+    - nvm:
         inputs:
         - node_version: node
-    - recursive-touch@0.9.0: {}
+    - recursive-touch: {}
     - script:
         title: Yarn Install
         inputs:
@@ -56,7 +51,7 @@ workflows:
             cache="$(yarn cache dir)"
 
             envman add --key YARN_CACHE_DIR --value "$cache"
-    - cache-push@2.0.2:
+    - cache-push:
         inputs:
         - cache_paths: "$YARN_CACHE_DIR"
   _prepare-expo:
@@ -64,7 +59,7 @@ workflows:
     - script:
         title: Prepare Expo
         inputs:
-        - content: |
+        - content: |-
             set -e
             set -x
 
@@ -83,3 +78,58 @@ workflows:
             yarn run lint
     before_run:
     - _prepare
+  ios:
+    steps:
+    - script:
+        title: Build iOS
+        inputs:
+        - content: |-
+            set -e
+            set -x
+
+            exp bi --non-interactive
+    before_run:
+    - _latest-release
+    - _prepare
+    - _prepare-expo
+    - _prepare_version
+  _latest-release:
+    steps:
+    - script:
+        title: Export Git Tag
+        inputs:
+        - content: |-
+            #!/bin/bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            tag=$(curl https://api.github.com/repos/PagesjaunesMobile/Mobrise/releases/latest | grep tag_name | awk -F\" '{print $4}')
+            envman add --key BITRISE_GIT_TAG --value $tag
+            envman add --key BITRISE_GIT_COMMIT --value ""
+            envman add --key $BITRISE_GIT_BRANCH --value ""
+  _prepare_version:
+    steps:
+    - script:
+        title: Set versions
+        inputs:
+        - content: |-
+            #!/bin/bash
+            # fail if any commands fails
+            set -e
+            # debug log
+            set -x
+
+            if [[ $BITRISE_GIT_TAG != v* ]]; then
+            echo "[ERROR] Invalid tag"
+              exit 1
+            fi
+
+            version=${BITRISE_GIT_TAG:1}
+            build=$(TZ=Europe/Paris date +%y%m%d%H%M)
+
+            yarn global add json
+            json  -If package.json -e "this.version='$version'"
+            json  -If app.json -e "this.expo.version='$version'"
+            json  -If app.json -e "this.expo.ios.buildNumber='$build'"
