@@ -1,7 +1,6 @@
 // @flow
 
 import type BitriseClient, { Build, App, Paging } from '../services/BitriseClient'
-import { DISCONNECT } from '../connection/connectionReducer'
 import { navigateToApps, navigateToApp, navigateToBuild } from '../navigation/navigationReducer'
 import { createAction, actionHandler } from '../utils'
 

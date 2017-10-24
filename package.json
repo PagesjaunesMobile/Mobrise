@@ -21,12 +21,12 @@
     "@expo/vector-icons": "^5.2.0",
     "autobind-decorator": "^2.1.0",
     "create-react-native-app": "^1.0.0",
-    "expo": "^21.0.0",
+    "expo": "^22.0.0",
     "global": "^4.3.2",
     "native-base": "^2.3.1",
     "pre-commit": "^1.2.2",
-    "react": "16.0.0-alpha.12",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-21.0.2.tar.gz",
+    "react": "16.0.0-beta.5",
+    "react-native": "https://github.com/expo/react-native/archive/sdk-22.0.1.tar.gz",
     "react-native-extended-stylesheet": "^0.7.0",
     "react-native-scripts": "^1.5.0",
     "react-navigation": "^1.0.0-beta.11",
@@ -44,8 +44,8 @@
     "eslint-plugin-jsx-a11y": "^6.0.2",
     "eslint-plugin-react": "^7.1.0",
     "eslint-plugin-react-native": "^3.1.0",
-    "flow-bin": "^0.56.0",
-    "jest-expo": "^21.0.0",
-    "react-test-renderer": "16.0.0-alpha.12"
+    "flow-bin": "^0.57.0",
+    "jest-expo": "^22.0.0",
+    "react-test-renderer": "16.0.0-beta.5"
   }
 }
