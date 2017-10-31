@@ -8,7 +8,7 @@
     "android": "react-native-scripts android",
     "ios": "react-native-scripts ios",
     "test": "node node_modules/jest/bin/jest.js --watch",
-    "postinstall": "rndebugger-open; (find node_modules -type f -name .babelrc | grep -v /react-native/ | xargs rm) || true",
+    "postinstall": "rndebugger-open",
     "lint": "echo 'Executing ESLint...' && eslint ./ --cache --ignore-pattern .gitignore"
   },
   "jest": {
@@ -20,6 +20,7 @@
   "dependencies": {
     "@expo/vector-icons": "^6.1.0",
     "autobind-decorator": "^2.1.0",
+    "babel-preset-react-native-syntax": "^1.0.0",
     "create-react-native-app": "^1.0.0",
     "expo": "^22.0.0",
     "global": "^4.3.2",
