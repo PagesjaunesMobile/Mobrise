@@ -12,14 +12,15 @@ import BitriseClient from './services/BitriseClient'
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose // eslint-disable-line no-underscore-dangle
 
 // $FlowFixMe
-const store = createStore(combineReducers({
-  navigation,
-  connection,
-  dashboard,
-}), composeEnhancers(applyMiddleware(
-  multiActions,
-  inject({ bitrise: new BitriseClient(), dispatch: (action: any) => store.dispatch(action), getState: () => store.getState() }),
-  pack,
-)))
-
-export default store
+export default () => {
+  const store = createStore(combineReducers({
+    navigation,
+    connection,
+    dashboard,
+  }), composeEnhancers(applyMiddleware(
+    multiActions,
+    inject({ bitrise: new BitriseClient(), dispatch: (action: any) => store.dispatch(action), getState: () => store.getState() }),
+    pack,
+  )))
+  return store
+}

@@ -6,7 +6,8 @@ import { View, Item, Icon, Input, Button, Text } from 'native-base'
 import { WebBrowser } from 'expo'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import { reduxify } from '../utils'
-import { connect, disconnect, loadToken, clearToken } from './connectionReducer'
+import { connect, loadToken, clearToken } from './connectionReducer'
+import I18n, { connect as translate } from '../I18n'
 
 const style = EStyleSheet.create({
   container: {
@@ -101,6 +102,7 @@ type Props = {
   connect: (string) => void,
   loadToken: () => void,
   clearToken: () => void,
+  i18n: I18n,
 }
 type State = {
   token: string,
@@ -109,10 +111,10 @@ type State = {
   token: state.connection.token,
 }), {
   connect,
-  disconnect,
   loadToken,
   clearToken,
 })
+@translate
 export default class ConnectionScreen extends PureComponent<Props, State> {
 
   static navigationOptions = {
@@ -138,10 +140,11 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
   }
 
   render() {
+    const { i18n } = this.props
     return (
       <View style={style.container}>
         <View style={style.bannerContainer}>
-          <Image source={require('../assets/banner-transparent.png')} style={style.banner} />
+          <Image source={require('../assets/images/banner-transparent.png')} style={style.banner} />
         </View>
 
         <View style={style.contentContainer}>
@@ -163,7 +166,7 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
               <Text style={style.generateTokenText}>Generate Token</Text>
             </Button>
             <Button rounded style={style.connectButton} onPress={() => this.props.connect(this.state.token)}>
-              <Text>Connect</Text>
+              <Text>{i18n.t('connection.test')}</Text>
               <Icon name="arrow-forward" />
             </Button>
           </View>

@@ -3,15 +3,19 @@
 // $FlowFixMe
 import Expo from 'expo'
 import React, { PureComponent } from 'react'
-import { Provider } from 'react-redux'
+import { Provider as StoreProvider } from 'react-redux'
 import EStyleSheet from 'react-native-extended-stylesheet'
-import store from './store'
+import createStore from './store'
 import NavigationScreen from './navigation/NavigationScreen'
 import style from './style'
+import I18n, { Provider as I18nProvider } from './I18n'
 
 EStyleSheet.build(style)
 
 type State = { isReady: boolean }
+
+const store = createStore()
+const i18n = new I18n()
 
 export default class App extends PureComponent<void, State> {
 
@@ -38,9 +42,11 @@ export default class App extends PureComponent<void, State> {
       return <Expo.AppLoading />
     }
     return (
-      <Provider store={store}>
-        <NavigationScreen />
-      </Provider>
+      <StoreProvider store={store}>
+        <I18nProvider i18n={i18n}>
+          <NavigationScreen />
+        </I18nProvider>
+      </StoreProvider>
     )
   }
 }

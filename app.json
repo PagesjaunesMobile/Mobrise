@@ -2,9 +2,9 @@
   "expo": {
     "name": "Mobrise",
     "slug": "mobrise",
-    "icon": "./src/assets/logo.png",
+    "icon": "./src/assets/images/logo.png",
     "loading": {
-      "icon": "./src/assets/banner-transparent.png",
+      "icon": "./src/assets/images/banner-transparent.png",
       "backgroundColor": "#3bc3a3",
       "hideExponentText": true
     },
@@ -13,13 +13,13 @@
     "sdkVersion": "22.0.0",
     "ios": {
       "bundleIdentifier": "fr.pagesjaunes.mobrise",
-      "icon": "./src/assets/logo.png",
+      "icon": "./src/assets/images/logo.png",
       "config": {
         "usesNonExemptEncryption": false
       },
       "splash": {
         "backgroundColor": "#3bc3a3",
-        "image": "./src/assets/banner-transparent.png"
+        "image": "./src/assets/images/banner-transparent.png"
       }
     }
   }

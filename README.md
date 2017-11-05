@@ -1,9 +1,9 @@
-<img src="https://github.com/PagesjaunesMobile/Mobrise/raw/master/src/assets/banner.png" maxHeight="200" maxWidth="800" />
+<img src="https://github.com/PagesjaunesMobile/Mobrise/raw/master/src/assets/images/banner.png" maxHeight="200" maxWidth="800" />
 
 
 # Mobrise
-[![Build Status](https://www.bitrise.io/app/28bd8b82304d63c3/status.svg?token=7_Vdp2MoJ3cDK7J1zyztyg&branch=master)](https://www.bitrise.io/app/28bd8b82304d63c3) 
-[![Latest Release](http://github-release-version.herokuapp.com/github/PagesjaunesMobile/Mobrise/release.svg?style=flatr)](https://github.com/Mikadoh/Mobrise/releases/latest) 
+[![Build Status](https://www.bitrise.io/app/28bd8b82304d63c3/status.svg?token=7_Vdp2MoJ3cDK7J1zyztyg&branch=master)](https://www.bitrise.io/app/28bd8b82304d63c3)
+[![Latest Release](http://github-release-version.herokuapp.com/github/PagesjaunesMobile/Mobrise/release.svg?style=flatr)](https://github.com/Mikadoh/Mobrise/releases/latest)
 
 This is an unofficial open-source iOS and Android client for the [bitrise.io](http://bitrise.io) public API.  
 The app is build with React Native / Expo  
@@ -22,7 +22,7 @@ Current version is still in alpha stage.
 </a>  
 
 2. Flash the QR Code  
-[![Mobrise](https://github.com/PagesjaunesMobile/Mobrise/raw/master/src/assets/qrcode.png)](https://expo.io/@mikadoh/mobrise)
+[![Mobrise](https://github.com/PagesjaunesMobile/Mobrise/raw/master/src/assets/images/qrcode.png)](https://expo.io/@mikadoh/mobrise)
 
 ## Generate Token
 
@@ -33,7 +33,7 @@ In order to connect to your bitrise account with Mobrise you need to [generate a
 
  Don't hesitate to create issues to share your suggestions or report your problems.  
  You can even open a pull request if you want to contribute to the projet.
- 
+
 ### Contributors
 Michaël Duthilleul (LinkValue)
 
