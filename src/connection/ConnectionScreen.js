@@ -7,7 +7,7 @@ import { WebBrowser } from 'expo'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import { reduxify } from '../utils'
 import { connect, loadToken, clearToken } from './connectionReducer'
-import I18n, { connect as translate } from '../I18n'
+import { connect as translate } from '../I18n'
 
 const style = EStyleSheet.create({
   container: {
@@ -102,7 +102,7 @@ type Props = {
   connect: (string) => void,
   loadToken: () => void,
   clearToken: () => void,
-  i18n: I18n,
+  t: (string) => string,
 }
 type State = {
   token: string,
@@ -114,13 +114,10 @@ type State = {
   loadToken,
   clearToken,
 })
-@translate
+@translate('connection')
 export default class ConnectionScreen extends PureComponent<Props, State> {
 
-  static navigationOptions = {
-    header: null,
-    headerBackTitle: 'Back',
-  }
+  static navigationOptions = null // defined outside (see below) in order to be visible in translate HOC
 
   state: State
 
@@ -140,7 +137,7 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
   }
 
   render() {
-    const { i18n } = this.props
+    const { t } = this.props
     return (
       <View style={style.container}>
         <View style={style.bannerContainer}>
@@ -152,7 +149,7 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
           <Item rounded style={style.tokenItem}>
             <Icon name="key" style={style.tokenIcon} />
             <Input
-              placeholder="Token"
+              placeholder={t('token')}
               value={this.state.token}
               onChangeText={(text => this.setState({ token: text }))}
               style={style.tokenInput}
@@ -163,17 +160,17 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
           </Item>
           <View style={style.connectContainer}>
             <Button rounded bordered style={style.generateTokenButton} onPress={() => WebBrowser.openBrowserAsync('https://www.bitrise.io/me/profile#/security')}>
-              <Text style={style.generateTokenText}>Generate Token</Text>
+              <Text style={style.generateTokenText}>{t('generateToken')}</Text>
             </Button>
             <Button rounded style={style.connectButton} onPress={() => this.props.connect(this.state.token)}>
-              <Text>{i18n.t('connection.test')}</Text>
+              <Text>{t('connect')}</Text>
               <Icon name="arrow-forward" />
             </Button>
           </View>
           <View />
           <View />
         </View>
-        <Text style={style.versionText}>{`Version: ${require('../../package.json').version || 'dev'}`}</Text>
+        <Text style={style.versionText}>{`${t('version')}: ${require('../../package.json').version || 'dev'}`}</Text>
         <TouchableOpacity style={style.informationIconContainer} onPress={() => WebBrowser.openBrowserAsync('https://github.com/PagesjaunesMobile/Mobrise')}>
           <Icon style={style.informationIcon} name="information-circle" />
         </TouchableOpacity>
@@ -181,3 +178,8 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
     )
   }
 }
+
+ConnectionScreen.navigationOptions = ({ screenProps }) => ({
+  header: null,
+  headerBackTitle: screenProps.t('common.back'),
+})

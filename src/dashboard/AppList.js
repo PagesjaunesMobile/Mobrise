@@ -5,6 +5,7 @@ import { Platform, FlatList } from 'react-native'
 import { ListItem, Text, Spinner, View, Body, Right, Left, Icon } from 'native-base'
 import EStyleSheet from 'react-native-extended-stylesheet'
 import autobind from 'autobind-decorator'
+import AppIcon from './AppIcon'
 import { reduxify } from '../utils'
 import { openApp, refreshApps, loadMoreApps } from './dashboardReducer'
 import type { App } from '../services/BitriseClient'
@@ -49,9 +50,9 @@ type Props = {
 })
 export default class AppList extends PureComponent<Props, void> {
 
-  static navigationOptions = {
-    title: 'Apps',
-  }
+  static navigationOptions = ({ screenProps }) => ({
+    title: screenProps.t('appList.apps'),
+  })
 
   render() {
     return (
@@ -67,10 +68,7 @@ export default class AppList extends PureComponent<Props, void> {
           renderItem={({ item: app }: { item: App }) => ( // eslint-disable-line react/no-unused-prop-types
             <ListItem disabled={app.is_disabled} icon onPress={() => { this.props.openApp(app) }} style={style.listItem}>
               <Left>
-                <Icon
-                  name={app.project_type === 'ios' ? 'logo-apple' : 'logo-android'}
-                  style={{ color: app.project_type === 'ios' ? '#999999' : '#a4c639' }}
-                />
+                <AppIcon app={app} />
               </Left>
               <Body>
                 <Text>{app.title}</Text>

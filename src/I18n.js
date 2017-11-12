@@ -1,5 +1,6 @@
 // @flow
-import React, { Component, PropTypes, Children } from 'react'
+import React, { Component, Children } from 'react'
+import PropTypes from 'prop-types'
 import Polyglot from 'node-polyglot'
 
 const locales = {
@@ -9,13 +10,13 @@ const locales = {
 
 export default class I18n {
 
-  polyglot = new Polyglot()
+  polyglot: Polyglot = new Polyglot()
+  locale: string
 
   setLocale(locale: string) {
     [locale] = locale.replace(/_/g, '-').split('-')
-    const traductionProdiver = (locale in locales) ? locales[locale] : locales.en
-    const traduction = traductionProdiver()
-    this.polyglot.extend(traduction)
+    this.locale = (locale in locales) ? locale : 'en'
+    this.polyglot.extend(locales[this.locale]())
   }
 
   t(key: string) {
@@ -23,11 +24,11 @@ export default class I18n {
   }
 }
 
-
 type ProviderProps = {
   i18n: I18n,
   children: any
 }
+
 export class Provider extends Component<ProviderProps> {
   props: ProviderProps
 
@@ -45,7 +46,7 @@ export class Provider extends Component<ProviderProps> {
   }
 }
 
-export const connect = (component: Component<any>) => {
+export const connect = (prefix: string) => (WrappedComponent: any) => {
   return class I18nComponent extends Component<void> { // eslint-disable-line react/no-multi-comp
     // let’s define what’s needed from the `context`
     static contextTypes = {
@@ -53,8 +54,14 @@ export const connect = (component: Component<any>) => {
     }
     render() {
       const { i18n } = this.context
+      const t = (key: string) => {
+        if (prefix && !key.startsWith('common')) {
+          key = `${prefix}.${key}`
+        }
+        return i18n.t(key)
+      }
       return (
-        <component {...this.props} i18n={i18n} />
+        <WrappedComponent {...this.props} t={t} />
       )
     }
   }

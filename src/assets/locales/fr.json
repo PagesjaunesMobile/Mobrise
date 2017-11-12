@@ -1,5 +1,14 @@
 {
+  "common": {
+    "back": "Retour"
+  },
   "connection": {
-    "test": "test"
+    "token": "Token",
+    "connect": "Se connecter",
+    "generateToken": "Générer token",
+    "version": "Version",
+  },
+  "appList": {
+    "apps": "Mes applications"
   }
 }

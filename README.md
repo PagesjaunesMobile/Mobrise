@@ -8,9 +8,6 @@
 This is an unofficial open-source iOS and Android client for the [bitrise.io](http://bitrise.io) public API.  
 The app is build with React Native / Expo  
 
-This is a work in progress.  
-Current version is still in alpha stage.  
-
 ## Install
 
 1. Install the [Expo](http://expo.io) App  

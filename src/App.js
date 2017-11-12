@@ -28,13 +28,17 @@ export default class App extends PureComponent<void, State> {
     }
   }
 
-  componentWillMount() {
-    Expo.Font.loadAsync({
+  async componentWillMount() {
+    i18n.setLocale('fr')
+    const loadFont = Expo.Font.loadAsync({
       Roboto: require('native-base/Fonts/Roboto.ttf'),
       Roboto_medium: require('native-base/Fonts/Roboto_medium.ttf'),
-    }).then(() => {
-      this.setState({ isReady: true })
     })
+    const loadLocale = Expo.Util.getCurrentLocaleAsync().then((locale) => {
+      i18n.setLocale(locale)
+    })
+    await Promise.all([loadFont, loadLocale])
+    this.setState({ isReady: true })
   }
 
   render() {

@@ -12,6 +12,7 @@ import AppList from '../dashboard/AppList'
 import AppView from '../dashboard/AppView'
 import BuildView from '../dashboard/BuildView'
 import style from '../style'
+import { connect as translate } from '../I18n'
 
 // $FlowFixMe
 export const Navigator = StackNavigator({
@@ -47,9 +48,11 @@ export const Navigator = StackNavigator({
 type Props = {
   dispatch?: (any) => void,
   navigation?: any,
+  t: (string) => string,
 }
 
 @reduxify(state => ({ navigation: state.navigation }))
+@translate()
 export default class NavigationScreen extends PureComponent<Props, void> {
 
   constructor(props: Props) {
@@ -59,7 +62,7 @@ export default class NavigationScreen extends PureComponent<Props, void> {
 
   render() {
     // $FlowFixMe
-    return <Navigator navigation={addNavigationHelpers({ dispatch: this.props.dispatch, state: this.props.navigation })} />
+    return <Navigator screenProps={{ t: this.props.t }} navigation={addNavigationHelpers({ dispatch: this.props.dispatch, state: this.props.navigation })} />
   }
 
   @autobind
