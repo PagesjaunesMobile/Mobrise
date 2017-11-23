@@ -10,7 +10,7 @@
     },
     "privacy": "unlisted",
     "description": "Unofficial Bitrise.io mobile client",
-    "sdkVersion": "22.0.0",
+    "sdkVersion": "23.0.0",
     "ios": {
       "bundleIdentifier": "fr.pagesjaunes.mobrise",
       "icon": "./src/assets/images/logo.png",
