@@ -12,7 +12,7 @@ const CLEAR_APP = createAction('CLEAR_APP')
 const LOAD_MORE_APPS = createAction('LOAD_MORE_APPS')
 const LOAD_MORE_BUILDS = createAction('LOAD_MORE_BUILDS')
 
-type State = {
+export type State = {
   loading: boolean,
   loadingMore: boolean,
   apps: ?Array<App>,

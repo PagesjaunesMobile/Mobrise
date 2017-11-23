@@ -5,12 +5,13 @@ import type BitriseClient from '../services/BitriseClient'
 import { openApps } from '../dashboard/dashboardReducer'
 import { createAction, actionHandler } from '../utils'
 
-type State = (typeof initialState)
 const initialState = {
   connecting: false,
   token: '',
   username: '',
 }
+export type State = (typeof initialState)
+
 
 const CONNECT = createAction('CONNECT')
 const LOAD_TOKEN = createAction('LOAD_TOKEN')
@@ -34,7 +35,7 @@ export default (state: State = initialState, action: any) => {
   return actionHandler(state, action)
     .handleAsync(CONNECT, {
       start: state => ({ ...state, connecting: true }),
-      success: state => ({ ...state, username: payload.username }),
+      success: state => ({ ...state, username: payload.account.data.username }),
       finish: state => ({ ...state, connecting: false }),
     })
     .handleAsync(LOAD_TOKEN, {

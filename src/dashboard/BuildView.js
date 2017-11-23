@@ -24,7 +24,7 @@ type Props = {
 }))
 export default class BuildView extends PureComponent<Props, void> {
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ navigation }: { navigation: any }) => ({ // eslint-disable-line react/no-unused-prop-types
     title: navigation.state.params.title,
   });
 

@@ -60,7 +60,7 @@ type Props = {
 })
 export default class BuildList extends PureComponent<Props, void> {
 
-  static navigationOptions = ({ navigation }) => ({
+  static navigationOptions = ({ navigation }: { navigation: any }) => ({
     title: navigation.state.params.title,
   });
 

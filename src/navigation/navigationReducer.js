@@ -5,7 +5,9 @@ import { Navigator } from './NavigationScreen'
 import type { App, Build } from '../services/BitriseClient'
 
 
-export default (state: any, action: any) => {
+export type State = any
+
+export default (state: State, action: any) => {
   return Navigator.router.getStateForAction(action, state) || state
 }
 

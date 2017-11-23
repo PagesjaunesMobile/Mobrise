@@ -48,7 +48,7 @@ export const Navigator = StackNavigator({
 type Props = {
   dispatch?: (any) => void,
   navigation?: any,
-  t: (string) => string,
+  t?: (string) => string,
 }
 
 @reduxify(state => ({ navigation: state.navigation }))

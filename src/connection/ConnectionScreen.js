@@ -179,7 +179,7 @@ export default class ConnectionScreen extends PureComponent<Props, State> {
   }
 }
 
-ConnectionScreen.navigationOptions = ({ screenProps }) => ({
+ConnectionScreen.navigationOptions = ({ screenProps }: { screenProps: { t: (string) => string } }) => ({
   header: null,
   headerBackTitle: screenProps.t('common.back'),
 })

@@ -9,6 +9,7 @@ import AppIcon from './AppIcon'
 import { reduxify } from '../utils'
 import { openApp, refreshApps, loadMoreApps } from './dashboardReducer'
 import type { App } from '../services/BitriseClient'
+import type { State } from '../store'
 
 const style = EStyleSheet.create({
   container: {
@@ -38,7 +39,7 @@ type Props = {
   hasMore: boolean,
   loadingMore: boolean,
 }
-@reduxify(state => ({
+@reduxify((state: State) => ({
   loading: state.dashboard.loading,
   apps: state.dashboard.apps,
   hasMore: state.dashboard.hasMore,
@@ -50,7 +51,7 @@ type Props = {
 })
 export default class AppList extends PureComponent<Props, void> {
 
-  static navigationOptions = ({ screenProps }) => ({
+  static navigationOptions = ({ screenProps }: { screenProps: { t: (string) => string } }) => ({
     title: screenProps.t('appList.apps'),
   })
 

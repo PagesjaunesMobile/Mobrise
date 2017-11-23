@@ -3,8 +3,9 @@
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { handle } from 'redux-pack'
+import type { State } from './store'
 
-export const reduxify = (matchPropsToState: any, actions: any) => {
+export const reduxify = (matchPropsToState: (State) => any, actions: any) => {
   const provideDispatch = dispatch => bindActionCreators(actions, dispatch)
   const matchDispatchToProps = actions ? provideDispatch : null
   return connect(matchPropsToState, matchDispatchToProps)
@@ -43,7 +44,7 @@ class ActionHandler {
     this.handled = false
   }
 
-  handleAsync(action: { type: string }, handlers: { start?: () => any, success?: () => any, failure?: () => any, finish?: () => any, always?: () => any }) {
+  handleAsync(action: { type: string }, handlers: { start?: (any) => any, success?: (any) => any, failure?: (any) => any, finish?: (any) => any, always?: () => any }) {
     return this.handle(action, () => handle(this.state, this.action, handlers))
   }
 
