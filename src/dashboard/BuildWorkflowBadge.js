@@ -8,20 +8,20 @@ import type { Build } from '../services/BitriseClient'
 const style = EStyleSheet.create({
   badge: {
     alignSelf: null,
-    backgroundColor: '$purple',
+    backgroundColor: '$green',
   },
 })
 
-const BuildBranchBadge = (props: { build: Build, style?: any}) => (
+const BuildWorkflowBadge = (props: { build: Build, style?: any}) => (
   <Badge
     style={EStyleSheet.flatten([style.badge, props.style])}
   >
-    <Text numberOfLines={1} >{`${props.build.branch || ''}${props.build.pull_request_id ? `#${props.build.pull_request_id}` : ''}`}</Text>
+    <Text numberOfLines={1} >{props.build.triggered_workflow}</Text>
   </Badge>
 )
 
-BuildBranchBadge.defaultProps = {
+BuildWorkflowBadge.defaultProps = {
   style: {},
 }
 
-export default BuildBranchBadge
+export default BuildWorkflowBadge

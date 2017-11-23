@@ -19,7 +19,7 @@ const CLEAR_TOKEN = createAction('CLEAR_TOKEN')
 
 export const connect = (token: string) => ({ bitrise, dispatch } : { bitrise: BitriseClient, dispatch: any }) => {
   bitrise.setToken(token)
-  return CONNECT.createAsync(bitrise.account().then(account => ({ account, token })), {
+  return CONNECT.createAsync(bitrise.getAccount().then(account => ({ account, token })), {
     onSuccess: () => {
       dispatch(openApps())
       SecureStore.setItemAsync('TOKEN', token)

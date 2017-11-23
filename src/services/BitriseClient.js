@@ -46,6 +46,12 @@ export type Build = {
   triggered_workflow: string,
 }
 
+export type BuildLog = {
+  is_archived: boolean,
+  timestamp: string,
+  text: string,
+}
+
 export type Paging = {
   next?: string,
   page_item_limit: number,
@@ -82,19 +88,35 @@ export default class BitriseClient {
     return response.json()
   }
 
-  account(): Promise<Response<Account>> {
+  getAccount(): Promise<Response<Account>> {
     return this.request('me')
   }
-
-  apps(next?: string): Promise<Response<Array<App>>> {
+  getApps(next?: string): Promise<Response<Array<App>>> {
     return this.request('me/apps', { next })
   }
 
-  builds(app: string, next?: string): Promise<Response<Array<Build>>> {
+  getBuilds(app: string, next?: string): Promise<Response<Array<Build>>> {
     return this.request(`apps/${app}/builds`, { next })
   }
 
-  build(app: string, build: string): Promise<Response<Build>> {
+  getBuild(app: string, build: string): Promise<Response<Build>> {
     return this.request(`apps/${app}/builds/${build}`)
+  }
+
+  async getBuildLog(app: string, build: string): Promise<BuildLog> {
+    const result = await this.request(`apps/${app}/builds/${build}/log`)
+    let text = ''
+    if (!result.is_archived) {
+      text = result.log_chunks.map(chunk => chunk.chunk).join('\n')
+    } else {
+      const rawLogResponse = await fetch(result.expiring_raw_log_url)
+      text = await rawLogResponse.text()
+    }
+    text = text.replace(/(\[3[0-9](;1)?m)|(\[0m)/g, '')
+    return {
+      is_archived: result.is_archived,
+      timestamp: result.timestamp,
+      text,
+    }
   }
 }

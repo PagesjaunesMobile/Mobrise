@@ -7,6 +7,7 @@ import EStyleSheet from 'react-native-extended-stylesheet'
 import autobind from 'autobind-decorator'
 import BuildStatusBadge from './BuildStatusBadge'
 import BuildBranchBadge from './BuildBranchBadge'
+import BuildWorkflowBadge from './BuildWorkflowBadge'
 import { reduxify } from '../utils'
 import { openBuild, refreshApp, loadMoreBuilds } from './dashboardReducer'
 import type { Build } from '../services/BitriseClient'
@@ -22,6 +23,9 @@ const style = EStyleSheet.create({
   },
   listItem: {
     backgroundColor: 'transparent',
+  },
+  listItemBodyBadge: {
+    marginRight: 5,
   },
   listItemBody: {
     flexDirection: 'row',
@@ -81,7 +85,8 @@ export default class BuildList extends PureComponent<Props, void> {
                 <BuildStatusBadge build={build} />
               </Left>
               <Body style={style.listItemBody}>
-                <BuildBranchBadge build={build} />
+                <BuildBranchBadge style={style.listItemBodyBadge} build={build} />
+                <BuildWorkflowBadge style={style.listItemBodyBadge} build={build} />
                 <Text numberOfLines={1} style={style.listItemCommitText}>{build.commit_message}</Text>
               </Body>
               { Platform.OS === 'ios' &&

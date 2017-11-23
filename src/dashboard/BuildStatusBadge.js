@@ -2,11 +2,12 @@
 
 import React from 'react'
 import { Badge, Text } from 'native-base'
+import EStyleSheet from 'react-native-extended-stylesheet'
 import type { Build } from '../services/BitriseClient'
 
 const BuildStatusBadge = ({ build, style }: { build: Build, style?: any }) => (
   <Badge
-    style={{ ...style, alignSelf: null }}
+    style={EStyleSheet.flatten([style, { alignSelf: null }])}
     primary={build.status === 0}
     success={build.status === 1}
     danger={build.status === 2}
@@ -17,7 +18,7 @@ const BuildStatusBadge = ({ build, style }: { build: Build, style?: any }) => (
 )
 
 BuildStatusBadge.defaultProps = {
-  style: null,
+  style: {},
 }
 
 export default BuildStatusBadge
