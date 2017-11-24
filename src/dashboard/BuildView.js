@@ -46,7 +46,7 @@ export default class BuildView extends PureComponent<Props, void> {
   render() {
     const { build } = this.props
     const date = new Date(build.started_on_worker_at)
-    const f = (number: number) => number.toString().padStart(2, '0')
+    const f = (number: number) => (number < 10 ? `0${number}` : number.toString())
     const dateString = `${date.getFullYear()}.${f(date.getMonth())}.${f(date.getDate())} @ ${f(date.getHours())}:${f(date.getMinutes())}`
     let durationString = null
     if (build.finished_at) {
