@@ -32,7 +32,5 @@ In order to connect to your bitrise account with Mobrise you need to [generate a
  You can even open a pull request if you want to contribute to the projet.
 
 ### Contributors
-Michaël Duthilleul (LinkValue)
-
-### Special Thanks
-Sébastien Pousse (PagesJaunes)
+Michaël Duthilleul ([LinkValue](https://link-value.fr/))  
+Sébastien Pousse ([PagesJaunes](http://developers.pagesjaunes.fr/))
