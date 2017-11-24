@@ -19,7 +19,7 @@ The app is build with React Native / Expo
 </a>  
 
 2. Flash the QR Code  
-[![Mobrise](https://github.com/PagesjaunesMobile/Mobrise/raw/master/src/assets/images/qrcode.png)](https://expo.io/@mikadoh/mobrise)
+[![Mobrise](https://lh6.googleusercontent.com/3r8m7bI4MJzR7RBxdRAg8AG7G8yfsS1kziKGTmYki-X6YQyURG2nMcJS6mWIXlivVLv7e2sip8uAoMht-Sow=w3840-h2060)](https://expo.io/@mikadoh/mobrise)
 
 ## Generate Token
 
